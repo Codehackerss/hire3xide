@@ -28,5 +28,8 @@
         "title": "Hello from plugin-b"
       }
     ]
+  },
+  "dependencies": {
+    "plugin-b": "file:"
   }
 }

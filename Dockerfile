@@ -18,7 +18,7 @@ RUN apk add --no-cache --virtual .build-deps \
     openjdk17-jdk \
     go \
     py3-setuptools && \
-    git clone https://github.com/sandeepss2020/theiaOriginal.git theia && \
+    git clone https://github.com/Codehackerss/hire3xide.git theia && \
     cd theia && \
     yarn install && \
     yarn add -W react react-dom && \

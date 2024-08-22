@@ -66,15 +66,6 @@ export namespace ElectronCommands {
 }
 
 export namespace ElectronMenus {
-    export const VIEW_WINDOW = [...CommonMenus.VIEW, 'window'];
-    export const VIEW_ZOOM = [...CommonMenus.VIEW_APPEARANCE_SUBMENU, '4_appearance_submenu_zoom'];
-}
-
-export namespace ElectronMenus {
-    export const HELP_TOGGLE = [...CommonMenus.HELP, 'z_toggle'];
-}
-
-export namespace ElectronMenus {
     export const FILE_CLOSE = [...CommonMenus.FILE_CLOSE, 'window-close'];
 }
 
@@ -374,34 +365,8 @@ export class ElectronMenuContribution extends BrowserMenuBarContribution impleme
     }
 
     registerMenus(registry: MenuModelRegistry): void {
-        registry.registerMenuAction(ElectronMenus.HELP_TOGGLE, {
-            commandId: ElectronCommands.TOGGLE_DEVELOPER_TOOLS.id
-        });
-
-        registry.registerMenuAction(ElectronMenus.VIEW_WINDOW, {
-            commandId: ElectronCommands.RELOAD.id,
-            order: 'z0'
-        });
-
-        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
-            commandId: ElectronCommands.ZOOM_IN.id,
-            order: 'z1'
-        });
-        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
-            commandId: ElectronCommands.ZOOM_OUT.id,
-            order: 'z2'
-        });
-        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
-            commandId: ElectronCommands.RESET_ZOOM.id,
-            order: 'z3'
-        });
         registry.registerMenuAction(ElectronMenus.FILE_CLOSE, {
             commandId: ElectronCommands.CLOSE_WINDOW.id,
-        });
-        registry.registerMenuAction(CommonMenus.VIEW_APPEARANCE_SUBMENU_SCREEN, {
-            commandId: ElectronCommands.TOGGLE_FULL_SCREEN.id,
-            label: nls.localizeByDefault('Full Screen'),
-            order: '0'
         });
     }
 

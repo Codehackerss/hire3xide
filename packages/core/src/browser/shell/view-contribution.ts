@@ -22,7 +22,6 @@ import {
 } from '../../common';
 import { KeybindingContribution, KeybindingRegistry } from '../keybinding';
 import { WidgetManager } from '../widget-manager';
-import { CommonMenus } from '../common-frontend-contribution';
 import { ApplicationShell } from './application-shell';
 import { QuickViewService } from '../quick-input';
 
@@ -160,10 +159,6 @@ export abstract class AbstractViewContribution<T extends Widget> implements Comm
 
     registerMenus(menus: MenuModelRegistry): void {
         if (this.toggleCommand) {
-            menus.registerMenuAction(CommonMenus.VIEW_VIEWS, {
-                commandId: this.toggleCommand.id,
-                label: this.viewLabel
-            });
         }
     }
 

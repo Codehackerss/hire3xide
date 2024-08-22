@@ -102,13 +102,11 @@
   ],
   "theiaPluginsDir": "plugins",
   "theiaPlugins": {
-    "vscode-builtin-debug-auto-launch": "https://open-vsx.org/api/vscode/debug-auto-launch/1.45.1/file/vscode.debug-auto-launch-1.45.1.vsix",
     "vscode-builtin-java": "https://open-vsx.org/api/vscode/java/1.45.1/file/vscode.java-1.45.1.vsix",
     "vscode-builtin-json": "https://open-vsx.org/api/vscode/json/1.46.1/file/vscode.json-1.46.1.vsix",
     "vscode-builtin-json-language-features": "https://open-vsx.org/api/vscode/json-language-features/1.46.1/file/vscode.json-language-features-1.46.1.vsix",
     "vscode-builtin-merge-conflict": "https://open-vsx.org/api/vscode/merge-conflict/1.45.1/file/vscode.merge-conflict-1.45.1.vsix",
     "vscode-builtin-npm": "https://open-vsx.org/api/vscode/npm/1.45.1/file/vscode.npm-1.45.1.vsix",
-    "vscode-builtin-node-debug": "https://open-vsx.org/api/ms-vscode/node-debug/1.44.8/file/ms-vscode.node-debug-1.44.8.vsix",
     "vscode-builtin-node-debug2": "https://open-vsx.org/api/ms-vscode/node-debug2/1.42.1/file/ms-vscode.node-debug2-1.42.1.vsix",
     "vscode-builtin-icon-theme-seti": "https://open-vsx.org/api/vscode/vscode-theme-seti/1.45.1/file/vscode.vscode-theme-seti-1.45.1.vsix",
     "vscode-builtin-xml": "https://open-vsx.org/api/vscode/xml/1.45.1/file/vscode.xml-1.45.1.vsix",
@@ -116,8 +114,7 @@
     "vscode-editorconfig": "https://open-vsx.org/api/EditorConfig/EditorConfig/0.14.4/file/EditorConfig.EditorConfig-0.14.4.vsix",
     "vscode-eslint": "https://open-vsx.org/api/dbaeumer/vscode-eslint/2.1.1/file/dbaeumer.vscode-eslint-2.1.1.vsix",
     "vscode-references-view": "https://open-vsx.org/api/ms-vscode/references-view/0.0.47/file/ms-vscode.references-view-0.0.47.vsix",
-    "vscode-java-language-support": "https://open-vsx.org/api/redhat/java/0.76.0/file/redhat.java-0.76.0.vsix",
-    "vscode-java-debug": "https://open-vsx.org/api/vscjava/vscode-java-debug/0.37.0/file/vscjava.vscode-java-debug-0.37.0.vsix"
+    "vscode-java-language-support": "https://open-vsx.org/api/redhat/java/0.76.0/file/redhat.java-0.76.0.vsix"
   },
   "theiaPluginsExcludeIds": [
     "ms-vscode.js-debug-companion",

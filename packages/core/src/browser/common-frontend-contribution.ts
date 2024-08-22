@@ -90,26 +90,11 @@ export namespace CommonMenus {
     export const EDIT_CLIPBOARD = [...EDIT, '2_clipboard'];
     export const EDIT_FIND = [...EDIT, '3_find'];
 
-    export const VIEW = [...MAIN_MENU_BAR, '4_view'];
-    export const VIEW_PRIMARY = [...VIEW, '0_primary'];
-    export const VIEW_APPEARANCE = [...VIEW, '1_appearance'];
-    export const VIEW_APPEARANCE_SUBMENU = [...VIEW_APPEARANCE, '1_appearance_submenu'];
-    export const VIEW_APPEARANCE_SUBMENU_SCREEN = [...VIEW_APPEARANCE_SUBMENU, '2_appearance_submenu_screen'];
-    export const VIEW_APPEARANCE_SUBMENU_BAR = [...VIEW_APPEARANCE_SUBMENU, '3_appearance_submenu_bar'];
-    export const VIEW_EDITOR_SUBMENU = [...VIEW_APPEARANCE, '2_editor_submenu'];
-    export const VIEW_EDITOR_SUBMENU_SPLIT = [...VIEW_EDITOR_SUBMENU, '1_editor_submenu_split'];
-    export const VIEW_EDITOR_SUBMENU_ORTHO = [...VIEW_EDITOR_SUBMENU, '2_editor_submenu_ortho'];
-    export const VIEW_VIEWS = [...VIEW, '2_views'];
-    export const VIEW_LAYOUT = [...VIEW, '3_layout'];
-    export const VIEW_TOGGLE = [...VIEW, '4_toggle'];
-
     export const MANAGE_GENERAL = [...MANAGE_MENU, '1_manage_general'];
     export const MANAGE_SETTINGS = [...MANAGE_MENU, '2_manage_settings'];
     export const MANAGE_SETTINGS_THEMES = [...MANAGE_SETTINGS, '1_manage_settings_themes'];
 
     // last menu item
-    export const HELP = [...MAIN_MENU_BAR, '9_help'];
-
 }
 
 export namespace CommonCommands {
@@ -602,8 +587,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
     registerMenus(registry: MenuModelRegistry): void {
         registry.registerSubmenu(CommonMenus.FILE, nls.localizeByDefault('File'));
         registry.registerSubmenu(CommonMenus.EDIT, nls.localizeByDefault('Edit'));
-        registry.registerSubmenu(CommonMenus.VIEW, nls.localizeByDefault('View'));
-        registry.registerSubmenu(CommonMenus.HELP, nls.localizeByDefault('Help'));
 
         // For plugins contributing create new file commands/menu-actions
         registry.registerIndependentSubmenu(CommonMenus.FILE_NEW_CONTRIBUTIONS, nls.localizeByDefault('New File...'));
@@ -656,20 +639,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             order: '3'
         });
 
-        registry.registerMenuAction(CommonMenus.VIEW_APPEARANCE_SUBMENU_BAR, {
-            commandId: CommonCommands.TOGGLE_BOTTOM_PANEL.id,
-            order: '1'
-        });
-        registry.registerMenuAction(CommonMenus.VIEW_APPEARANCE_SUBMENU_BAR, {
-            commandId: CommonCommands.TOGGLE_STATUS_BAR.id,
-            order: '2',
-            label: nls.localizeByDefault('Toggle Status Bar Visibility')
-        });
-        registry.registerMenuAction(CommonMenus.VIEW_APPEARANCE_SUBMENU_BAR, {
-            commandId: CommonCommands.COLLAPSE_ALL_PANELS.id,
-            order: '3'
-        });
-
         registry.registerMenuAction(SHELL_TABBAR_CONTEXT_CLOSE, {
             commandId: CommonCommands.CLOSE_TAB.id,
             label: nls.localizeByDefault('Close'),
@@ -705,20 +674,10 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             label: CommonCommands.TOGGLE_MAXIMIZED.label,
             order: '6'
         });
-        registry.registerMenuAction(CommonMenus.VIEW_APPEARANCE_SUBMENU_SCREEN, {
-            commandId: CommonCommands.TOGGLE_MAXIMIZED.id,
-            label: CommonCommands.TOGGLE_MAXIMIZED.label,
-            order: '6'
-        });
         registry.registerMenuAction(SHELL_TABBAR_CONTEXT_COPY, {
             commandId: CommonCommands.COPY_PATH.id,
             label: CommonCommands.COPY_PATH.label,
             order: '1',
-        });
-        registry.registerMenuAction(CommonMenus.VIEW_APPEARANCE_SUBMENU_BAR, {
-            commandId: CommonCommands.SHOW_MENU_BAR.id,
-            label: nls.localizeByDefault('Toggle Menu Bar'),
-            order: '0'
         });
         registry.registerMenuAction(SHELL_TABBAR_CONTEXT_PIN, {
             commandId: CommonCommands.PIN_TAB.id,
@@ -729,15 +688,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             commandId: CommonCommands.UNPIN_TAB.id,
             label: nls.localizeByDefault('Unpin'),
             order: '8'
-        });
-        registry.registerMenuAction(CommonMenus.HELP, {
-            commandId: CommonCommands.ABOUT_COMMAND.id,
-            label: CommonCommands.ABOUT_COMMAND.label,
-            order: '9'
-        });
-
-        registry.registerMenuAction(CommonMenus.VIEW_PRIMARY, {
-            commandId: CommonCommands.OPEN_VIEW.id
         });
 
         registry.registerMenuAction(CommonMenus.FILE_SETTINGS_SUBMENU_THEME, {
@@ -756,8 +706,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             commandId: CommonCommands.SELECT_ICON_THEME.id,
             order: '1'
         });
-
-        registry.registerSubmenu(CommonMenus.VIEW_APPEARANCE_SUBMENU, nls.localizeByDefault('Appearance'));
 
         registry.registerMenuAction(CommonMenus.FILE_NEW_TEXT, {
             commandId: CommonCommands.NEW_UNTITLED_TEXT_FILE.id,

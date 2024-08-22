@@ -18,7 +18,7 @@ import { injectable, inject, postConstruct, optional } from '@theia/core/shared/
 import {
     ApplicationShell, ViewContainer as ViewContainerWidget, WidgetManager, QuickViewService,
     ViewContainerIdentifier, ViewContainerTitleOptions, Widget, FrontendApplicationContribution,
-    StatefulWidget, CommonMenus, TreeViewWelcomeWidget, ViewContainerPart, BaseWidget,
+    StatefulWidget, TreeViewWelcomeWidget, ViewContainerPart, BaseWidget,
 } from '@theia/core/lib/browser';
 import { ViewContainer, View, ViewWelcome, PluginViewType } from '../../../common';
 import { PluginSharedStyle } from '../plugin-shared-style';
@@ -343,10 +343,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
                 label: nls.localizeByDefault('Toggle {0}', options.label)
             }, {
                 execute: () => this.toggleViewContainer(id)
-            }));
-            toDispose.push(this.menus.registerMenuAction(CommonMenus.VIEW_VIEWS, {
-                commandId: toggleCommandId,
-                label: options.label
             }));
             toDispose.push(this.quickView?.registerItem({
                 label: options.label,

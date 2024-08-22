@@ -18,8 +18,8 @@ import { ConfirmDialog, Dialog, QuickInputService } from '@theia/core/lib/browse
 import { ReactDialog } from '@theia/core/lib/browser/dialogs/react-dialog';
 import { SelectComponent } from '@theia/core/lib/browser/widgets/select-component';
 import {
-    Command, CommandContribution, CommandRegistry, MAIN_MENU_BAR,
-    MenuContribution, MenuModelRegistry, MenuNode, MessageService, SubMenuOptions
+    Command, CommandContribution, CommandRegistry,
+    MenuNode, MessageService, SubMenuOptions
 } from '@theia/core/lib/common';
 import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import * as React from '@theia/core/shared/react';
@@ -222,43 +222,6 @@ export class SampleCommandContribution implements CommandContribution {
 
 }
 
-@injectable()
-export class SampleMenuContribution implements MenuContribution {
-    registerMenus(menus: MenuModelRegistry): void {
-        const subMenuPath = [...MAIN_MENU_BAR, 'sample-menu'];
-        menus.registerSubmenu(subMenuPath, 'Sample Menu', {
-            order: '2' // that should put the menu right next to the File menu
-        });
-        menus.registerMenuAction(subMenuPath, {
-            commandId: SampleCommand.id,
-            order: '0'
-        });
-        menus.registerMenuAction(subMenuPath, {
-            commandId: SampleCommand2.id,
-            order: '2'
-        });
-        const subSubMenuPath = [...subMenuPath, 'sample-sub-menu'];
-        menus.registerSubmenu(subSubMenuPath, 'Sample sub menu', { order: '2' });
-        menus.registerMenuAction(subSubMenuPath, {
-            commandId: SampleCommand.id,
-            order: '1'
-        });
-        menus.registerMenuAction(subSubMenuPath, {
-            commandId: SampleCommand2.id,
-            order: '3'
-        });
-        const placeholder = new PlaceholderMenuNode([...subSubMenuPath, 'placeholder'].join('-'), 'Placeholder', { order: '0' });
-        menus.registerMenuNode(subSubMenuPath, placeholder);
-
-        /**
-         * Register an action menu with an invalid command (un-registered and without a label) in order
-         * to determine that menus and the layout does not break on startup.
-         */
-        menus.registerMenuAction(subMenuPath, { commandId: 'invalid-command' });
-    }
-
-}
-
 /**
  * Special menu node that is not backed by any commands and is always disabled.
  */
@@ -278,5 +241,4 @@ export class PlaceholderMenuNode implements MenuNode {
 
 export const bindSampleMenu = (bind: interfaces.Bind) => {
     bind(CommandContribution).to(SampleCommandContribution).inSingletonScope();
-    bind(MenuContribution).to(SampleMenuContribution).inSingletonScope();
 };
