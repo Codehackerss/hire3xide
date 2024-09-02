@@ -23,7 +23,6 @@ import {
 import { ViewContainer, View, ViewWelcome, PluginViewType } from '../../../common';
 import { PluginSharedStyle } from '../plugin-shared-style';
 import { PluginViewWidget, PluginViewWidgetIdentifier } from './plugin-view-widget';
-import { SCM_VIEW_CONTAINER_ID, ScmContribution } from '@theia/scm/lib/browser/scm-contribution';
 import { EXPLORER_VIEW_CONTAINER_ID, FileNavigatorWidget, FILE_NAVIGATOR_ID } from '@theia/navigator/lib/browser';
 import { FileNavigatorContribution } from '@theia/navigator/lib/browser/navigator-contribution';
 import { Disposable, DisposableCollection } from '@theia/core/lib/common/disposable';
@@ -70,9 +69,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
 
     @inject(WidgetManager)
     protected readonly widgetManager: WidgetManager;
-
-    @inject(ScmContribution)
-    protected readonly scm: ScmContribution;
 
     @inject(FileNavigatorContribution)
     protected readonly explorer: FileNavigatorContribution;
@@ -122,7 +118,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
     private static readonly ID_MAPPINGS: Map<string, string> = new Map([
         // VS Code Viewlets
         [EXPLORER_VIEW_CONTAINER_ID, 'workbench.view.explorer'],
-        [SCM_VIEW_CONTAINER_ID, 'workbench.view.scm'],
         [SEARCH_VIEW_CONTAINER_ID, 'workbench.view.search'],
         ['vsx-extensions-view-container', 'workbench.view.extensions'], // cannot use the id from 'vsx-registry' package because of circular dependency
         [PROBLEMS_WIDGET_ID, 'workbench.panel.markers'],
@@ -144,9 +139,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
         this.widgetManager.onWillCreateWidget(({ factoryId, widget, waitUntil }) => {
             if (factoryId === EXPLORER_VIEW_CONTAINER_ID && widget instanceof ViewContainerWidget) {
                 waitUntil(this.prepareViewContainer('explorer', widget));
-            }
-            if (factoryId === SCM_VIEW_CONTAINER_ID && widget instanceof ViewContainerWidget) {
-                waitUntil(this.prepareViewContainer('scm', widget));
             }
             if (factoryId === SEARCH_VIEW_CONTAINER_ID && widget instanceof ViewContainerWidget) {
                 waitUntil(this.prepareViewContainer('search', widget));
@@ -627,13 +619,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
             }
             return undefined;
         }
-        if (containerId === 'scm') {
-            const widget = await this.scm.openView();
-            if (widget.parent instanceof ViewContainerWidget) {
-                return widget.parent;
-            }
-            return undefined;
-        }
         const data = this.viewContainers.get(containerId);
         if (!data) {
             return undefined;
@@ -710,7 +695,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
         const description = this.widgetManager.getDescription(container);
         switch (description?.factoryId) {
             case EXPLORER_VIEW_CONTAINER_ID: return 'explorer';
-            case SCM_VIEW_CONTAINER_ID: return 'scm';
             case SEARCH_VIEW_CONTAINER_ID: return 'search';
             case TEST_VIEW_CONTAINER_ID: return 'test';
             case PLUGIN_VIEW_CONTAINER_FACTORY_ID: return this.toViewContainerId(description.options);
@@ -721,9 +705,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
     protected async getPluginViewContainer(viewContainerId: string): Promise<ViewContainerWidget | undefined> {
         if (viewContainerId === 'explorer') {
             return this.widgetManager.getWidget<ViewContainerWidget>(EXPLORER_VIEW_CONTAINER_ID);
-        }
-        if (viewContainerId === 'scm') {
-            return this.widgetManager.getWidget<ViewContainerWidget>(SCM_VIEW_CONTAINER_ID);
         }
         if (viewContainerId === 'search') {
             return this.widgetManager.getWidget<ViewContainerWidget>(SEARCH_VIEW_CONTAINER_ID);
@@ -759,12 +740,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
             const explorer = await this.widgetManager.getWidget(EXPLORER_VIEW_CONTAINER_ID);
             if (explorer instanceof ViewContainerWidget) {
                 await this.prepareViewContainer('explorer', explorer);
-            }
-        })().catch(console.error));
-        promises.push((async () => {
-            const scm = await this.widgetManager.getWidget(SCM_VIEW_CONTAINER_ID);
-            if (scm instanceof ViewContainerWidget) {
-                await this.prepareViewContainer('scm', scm);
             }
         })().catch(console.error));
         promises.push((async () => {

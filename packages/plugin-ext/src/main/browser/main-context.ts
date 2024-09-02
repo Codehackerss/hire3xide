@@ -34,7 +34,6 @@ import { WebviewsMainImpl } from './webviews-main';
 import { TasksMainImpl } from './tasks-main';
 import { StorageMainImpl } from './plugin-storage';
 import { FileSystemMainImpl } from './file-system-main-impl';
-import { ScmMainImpl } from './scm-main';
 import { DecorationsMainImpl } from './decorations/decorations-main';
 import { ClipboardMainImpl } from './clipboard-main';
 import { DocumentsMainImpl } from './documents-main';
@@ -169,9 +168,6 @@ export function setUpPluginApi(rpc: RPCProtocol, container: interfaces.Container
     };
 
     rpc.set(PLUGIN_RPC_CONTEXT.FILE_SYSTEM_MAIN, fs);
-
-    const scmMain = new ScmMainImpl(rpc, container);
-    rpc.set(PLUGIN_RPC_CONTEXT.SCM_MAIN, scmMain);
 
     const secretsMain = new SecretsMainImpl(rpc, container);
     rpc.set(PLUGIN_RPC_CONTEXT.SECRETS_MAIN, secretsMain);

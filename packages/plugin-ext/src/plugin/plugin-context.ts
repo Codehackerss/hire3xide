@@ -244,7 +244,6 @@ import { MarkdownString } from './markdown-string';
 import { TreeViewsExtImpl } from './tree/tree-views';
 import { TasksExtImpl } from './tasks/tasks';
 import { FileSystemExtImpl } from './file-system-ext-impl';
-import { ScmExtImpl } from './scm';
 import { DecorationsExtImpl } from './decorations';
 import { TextEditorExt } from './text-editor';
 import { ClipboardExt } from './clipboard-ext';
@@ -304,7 +303,6 @@ export function createAPIFactory(
     const fileSystemExt = rpc.set(MAIN_RPC_CONTEXT.FILE_SYSTEM_EXT, new FileSystemExtImpl(rpc));
     const languagesExt = rpc.set(MAIN_RPC_CONTEXT.LANGUAGES_EXT, new LanguagesExtImpl(rpc, documents, commandRegistry, fileSystemExt));
     const extHostFileSystemEvent = rpc.set(MAIN_RPC_CONTEXT.ExtHostFileSystemEventService, new ExtHostFileSystemEventService(rpc, editorsAndDocumentsExt));
-    const scmExt = rpc.set(MAIN_RPC_CONTEXT.SCM_EXT, new ScmExtImpl(rpc, commandRegistry));
     const decorationsExt = rpc.set(MAIN_RPC_CONTEXT.DECORATIONS_EXT, new DecorationsExtImpl(rpc));
     const labelServiceExt = rpc.set(MAIN_RPC_CONTEXT.LABEL_SERVICE_EXT, new LabelServiceExtImpl(rpc));
     const timelineExt = rpc.set(MAIN_RPC_CONTEXT.TIMELINE_EXT, new TimelineExtImpl(rpc, commandRegistry));
@@ -1063,13 +1061,6 @@ export function createAPIFactory(
             }
         };
 
-        const debug: typeof theia.debug = {
-            /** @stubbed Due to proposed API */
-            registerDebugVisualizationProvider: () => Disposable.NULL,
-            /** @stubbed Due to proposed API */
-            registerDebugVisualizationTreeProvider: () => Disposable.NULL
-        };
-
         const tasks: typeof theia.tasks = {
             registerTaskProvider(type: string, provider: theia.TaskProvider): theia.Disposable {
                 return tasksExt.registerTaskProvider(type, provider);
@@ -1099,21 +1090,6 @@ export function createAPIFactory(
                 return tasksExt.onDidEndTaskProcess(listener, thisArg, disposables);
             }
         };
-
-        const scm: typeof theia.scm = {
-            get inputBox(): theia.SourceControlInputBox {
-                const inputBox = scmExt.getLastInputBox(plugin);
-                if (inputBox) {
-                    return inputBox;
-                } else {
-                    throw new Error('Input box not found!');
-                }
-            },
-            createSourceControl(id: string, label: string, rootUri?: URI): theia.SourceControl {
-                return scmExt.createSourceControl(plugin, id, label, rootUri);
-            }
-        };
-
         const comments: typeof theia.comments = {
             createCommentController(id: string, label: string): theia.CommentController {
                 return commentsExt.createCommentController(plugin, id, label);
@@ -1211,9 +1187,7 @@ export function createAPIFactory(
             extensions,
             languages,
             plugins,
-            debug,
             tasks,
-            scm,
             notebooks,
             l10n,
             tests,

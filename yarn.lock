@@ -1751,7 +1751,7 @@
   dependencies:
     "@theia/application-manager" "1.52.0"
     "@theia/application-package" "1.52.0"
-    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-d0a6b55b-1d4c-460d-8a30-bdc91d7cdd51-1725259307779/node_modules/@theia/cli"
+    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-2a381a10-a139-4e6e-8eae-4371d2f8caa4-1725271214483/node_modules/@theia/cli"
     "@theia/ffmpeg" "1.52.0"
     "@theia/localization-manager" "1.52.0"
     "@theia/ovsx-client" "1.52.0"
@@ -1776,10 +1776,65 @@
     tslib "^2.6.2"
     yargs "^15.3.1"
 
+"@theia/git@1.52.0":
+  version "1.52.0"
+  resolved "https://registry.yarnpkg.com/@theia/git/-/git-1.52.0.tgz#1d8ef09e582735e7dbf3c0d00e507a36b95262da"
+  integrity sha512-b9DDlnR0mTu+5WKkB+05XvhQzL6j5ZDkg1H40fDZ1vdRMZzQuWTbf3UWkk6vj1ai7/QaM7fdEaxVsr4TS4IMXw==
+  dependencies:
+    "@theia/core" "1.52.0"
+    "@theia/editor" "1.52.0"
+    "@theia/filesystem" "1.52.0"
+    "@theia/monaco-editor-core" "1.83.101"
+    "@theia/navigator" "1.52.0"
+    "@theia/scm" "1.52.0"
+    "@theia/scm-extra" "1.52.0"
+    "@theia/workspace" "1.52.0"
+    "@types/diff" "^5.2.1"
+    "@types/p-queue" "^2.3.1"
+    diff "^5.2.0"
+    dugite-extra "0.1.17"
+    find-git-exec "^0.0.4"
+    find-git-repositories "^0.1.1"
+    luxon "^2.4.0"
+    node-ssh "^12.0.1"
+    octicons "^7.1.0"
+    p-queue "^2.4.2"
+    ts-md5 "^1.2.2"
+    tslib "^2.6.2"
+
 "@theia/monaco-editor-core@1.83.101":
   version "1.83.101"
   resolved "https://registry.yarnpkg.com/@theia/monaco-editor-core/-/monaco-editor-core-1.83.101.tgz#a0577396fb4c69540536df2d7fed2de4399c4fde"
   integrity sha512-UaAi6CEvain/qbGD3o6Ufe8plLyzAVQ53p9Ke+MoBYDhb391+r+MuK++JtITqIrXqoa8OCjbt8wQxEFSNNO0Mw==
+
+"@theia/scm-extra@1.52.0":
+  version "1.52.0"
+  resolved "https://registry.yarnpkg.com/@theia/scm-extra/-/scm-extra-1.52.0.tgz#bc9c0cc2f5f1e48a1c01bdfdee35918a05606fd4"
+  integrity sha512-pU0DW6dN6HqP3X/xd9+yHxgKWGXCoihunN1m5jjCnGISxxyPc46U/UySUiEy587oNQgZNeH+d+QMMHxZUvlp9Q==
+  dependencies:
+    "@theia/core" "1.52.0"
+    "@theia/editor" "1.52.0"
+    "@theia/filesystem" "1.52.0"
+    "@theia/navigator" "1.52.0"
+    "@theia/scm" "1.52.0"
+    tslib "^2.6.2"
+
+"@theia/scm@1.52.0":
+  version "1.52.0"
+  resolved "https://registry.yarnpkg.com/@theia/scm/-/scm-1.52.0.tgz#408a5c3170bdcda783f64bbaeb4a313baebf9cfe"
+  integrity sha512-Jww8I1iGgAu5phST3Ctq1dYgsa13z8gNpy8lQGMFdXhkLafRBqBKmG6hnQpZwxQ73qEvi2yP6OS9htHBc/+F6w==
+  dependencies:
+    "@theia/core" "1.52.0"
+    "@theia/editor" "1.52.0"
+    "@theia/filesystem" "1.52.0"
+    "@theia/monaco" "1.52.0"
+    "@theia/monaco-editor-core" "1.83.101"
+    "@types/diff" "^5.2.1"
+    diff "^5.2.0"
+    p-debounce "^2.1.0"
+    react-autosize-textarea "^7.0.0"
+    ts-md5 "^1.2.2"
+    tslib "^2.6.2"
 
 "@tootallnate/once@1", "@tootallnate/once@^1.1.2":
   version "1.1.2"
@@ -9533,12 +9588,12 @@ playwright@1.41.2:
 "plugin-a@file:sample-plugins/sample-namespace/plugin-a":
   version "1.52.0"
   dependencies:
-    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-e5da4e1b-73cf-4bfa-923d-8a28c23c0bc7-1725259307792/node_modules/plugin-a"
+    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-9ad19b30-dfeb-44c8-b29f-c864de37078c-1725271214491/node_modules/plugin-a"
 
 "plugin-b@file:sample-plugins/sample-namespace/plugin-b":
   version "1.52.0"
   dependencies:
-    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-aed8d589-9de6-4475-b658-98b54d4d3b4a-1725259307790/node_modules/plugin-b"
+    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-f39f4455-efb0-409f-95c7-dcd104d41166-1725271214489/node_modules/plugin-b"
 
 portfinder@^1.0.28:
   version "1.0.32"
@@ -11895,11 +11950,6 @@ upath@2.0.1, upath@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/upath/-/upath-2.0.1.tgz#50c73dea68d6f6b990f51d279ce6081665d61a8b"
   integrity sha512-1uEe95xksV1O0CYKXo8vQvN1JEbtJp7lb7C5U9HMsIp6IVwntkH/oNUzyVNQSd4S1sYk2FpSSW44FqMc8qee5w==
-
-upath@^1.0.2:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
-  integrity sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
 
 update-browserslist-db@^1.0.13:
   version "1.0.13"

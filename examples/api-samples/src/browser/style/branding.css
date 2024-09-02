@@ -15,17 +15,17 @@
  ********************************************************************************/
 
 .theia-icon {
-  background-image: url("../icons/theia.png");
+  background-image: url("../icons/sidelogo.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 #theia-main-content-panel {
-  background-image: url("../icons/theia.png");
+  background-image: url("../icons/logo1.svg.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 15%;
+  background-size: 25%;
 }
 
 .unclosable-window-icon {

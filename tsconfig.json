@@ -88,9 +88,6 @@
       "path": "packages/getting-started"
     },
     {
-      "path": "packages/git"
-    },
-    {
       "path": "packages/keymaps"
     },
     {
@@ -152,12 +149,6 @@
     },
     {
       "path": "packages/remote"
-    },
-    {
-      "path": "packages/scm"
-    },
-    {
-      "path": "packages/scm-extra"
     },
     {
       "path": "packages/search-in-workspace"

@@ -11884,27 +11884,6 @@ export module '@theia/plugin' {
          */
         dispose(): void;
     }
-
-    export namespace scm {
-
-        /**
-         * ~~The {@link SourceControlInputBox input box} for the last source control
-         * created by the extension.~~
-         *
-         * @deprecated Use SourceControl.inputBox instead
-         */
-        export const inputBox: SourceControlInputBox;
-
-        /**
-         * Creates a new {@link SourceControl source control} instance.
-         *
-         * @param id An `id` for the source control. Something short, eg: `git`.
-         * @param label A human-readable string for the source control. Eg: `Git`.
-         * @param rootUri An optional Uri of the root of the source control. Eg: `Uri.parse(workspaceRoot)`.
-         * @return An instance of {@link SourceControl source control}.
-         */
-        export function createSourceControl(id: string, label: string, rootUri?: Uri): SourceControl;
-    }
     /**
      * An event describing the changes to the set of {@link Breakpoint breakpoints}.
      */

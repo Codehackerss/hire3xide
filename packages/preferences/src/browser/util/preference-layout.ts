@@ -174,19 +174,9 @@ export const DEFAULT_LAYOUT: PreferenceLayout[] = [
                 settings: ['search.*']
             },
             {
-                id: 'features.debug',
-                label: nls.localizeByDefault('Debug'),
-                settings: ['debug.*', 'launch']
-            },
-            {
                 id: 'features.testing',
                 label: nls.localizeByDefault('Testing'),
                 settings: ['testing.*']
-            },
-            {
-                id: 'features.scm',
-                label: nls.localizeByDefault('Source Control'),
-                settings: ['scm.*']
             },
             {
                 id: 'features.extensions',

@@ -22,30 +22,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 declare module '@theia/plugin' {
-    export namespace debug {
-        /**
-         * Registers a custom data visualization for variables when debugging.
-         *
-         * @param id The corresponding ID in the package.json `debugVisualizers` contribution point.
-         * @param provider The {@link DebugVisualizationProvider} to register
-         * @stubbed
-         */
-        export function registerDebugVisualizationProvider<T extends DebugVisualization>(
-            id: string,
-            provider: DebugVisualizationProvider<T>
-        ): Disposable;
-
-        /**
-         * Registers a tree that can be referenced by {@link DebugVisualization.visualization}.
-         * @param id
-         * @param provider
-         * @stubbed
-         */
-        export function registerDebugVisualizationTreeProvider<T extends DebugTreeItem>(
-            id: string,
-            provider: DebugVisualizationTree<T>
-        ): Disposable;
-    }
 
     /**
      * An item from the {@link DebugVisualizationTree}

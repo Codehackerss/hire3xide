@@ -22,7 +22,6 @@
     "@theia/output": "1.52.0",
     "@theia/plugin": "1.52.0",
     "@theia/preferences": "1.52.0",
-    "@theia/scm": "1.52.0",
     "@theia/search-in-workspace": "1.52.0",
     "@theia/task": "1.52.0",
     "@theia/terminal": "1.52.0",
