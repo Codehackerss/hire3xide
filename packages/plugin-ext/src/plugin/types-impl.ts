@@ -2848,8 +2848,6 @@ export class DebugAdapterExecutable {
      * Optional options to be used when the debug adapter is started.
      * Defaults to undefined.
      */
-    readonly options?: theia.DebugAdapterExecutableOptions;
-
     /**
      * Creates a description for a debug adapter based on an executable program.
      *
@@ -2857,17 +2855,13 @@ export class DebugAdapterExecutable {
      * @param args Optional arguments to be passed to the command or executable.
      * @param options Optional options to be used when starting the command or executable.
      */
-    constructor(command: string, args?: string[], options?: theia.DebugAdapterExecutableOptions) {
+    constructor(command: string, args?: string[]) {
         this.command = command;
         this.args = args;
-        this.options = options;
     }
 }
 
 export namespace DebugAdapterExecutable {
-    export function is(adapter: theia.DebugAdapterDescriptor | undefined): adapter is theia.DebugAdapterExecutable {
-        return !!adapter && 'command' in adapter;
-    }
 }
 
 /**
@@ -2896,9 +2890,6 @@ export class DebugAdapterServer {
 }
 
 export namespace DebugAdapterServer {
-    export function is(adapter: theia.DebugAdapterDescriptor | undefined): adapter is DebugAdapterServer {
-        return !!adapter && 'port' in adapter;
-    }
 }
 
 /**
@@ -2912,34 +2903,7 @@ export class DebugAdapterNamedPipeServer {
     constructor(readonly path: string) { }
 }
 
-export namespace DebugAdapterNamedPipeServer {
-    export function is(adapter: theia.DebugAdapterDescriptor | undefined): adapter is DebugAdapterNamedPipeServer {
-        return !!adapter && 'path' in adapter;
-    }
-}
-
-/**
- * A debug adapter descriptor for an inline implementation.
- */
-@es5ClassCompat
-export class DebugAdapterInlineImplementation {
-    implementation: theia.DebugAdapter;
-
-    /**
-     * Create a descriptor for an inline implementation of a debug adapter.
-     */
-    constructor(impl: theia.DebugAdapter) {
-        this.implementation = impl;
-    }
-}
-
-export namespace DebugAdapterInlineImplementation {
-    export function is(adapter: theia.DebugAdapterDescriptor | undefined): adapter is DebugAdapterInlineImplementation {
-        return !!adapter && 'implementation' in adapter;
-    }
-}
-
-export type DebugAdapterDescriptor = DebugAdapterExecutable | DebugAdapterServer | DebugAdapterNamedPipeServer | DebugAdapterInlineImplementation;
+export type DebugAdapterDescriptor = DebugAdapterExecutable | DebugAdapterServer | DebugAdapterNamedPipeServer;
 
 export enum LogLevel {
     Off = 0,
@@ -3029,14 +2993,6 @@ export class FunctionBreakpoint extends Breakpoint {
         super(enabled, condition, hitCondition, logMessage, id);
         this.functionName = functionName;
     }
-}
-
-export class DebugThread implements theia.DebugThread {
-    constructor(readonly session: theia.DebugSession, readonly threadId: number) { }
-}
-
-export class DebugStackFrame implements theia.DebugStackFrame {
-      constructor(readonly session: theia.DebugSession, readonly threadId: number, readonly frameId: number) { }
 }
 
 @es5ClassCompat

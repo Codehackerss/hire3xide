@@ -33,7 +33,6 @@ import { ConnectionImpl } from '../../common/connection';
 import { WebviewsMainImpl } from './webviews-main';
 import { TasksMainImpl } from './tasks-main';
 import { StorageMainImpl } from './plugin-storage';
-import { DebugMainImpl } from './debug/debug-main';
 import { FileSystemMainImpl } from './file-system-main-impl';
 import { ScmMainImpl } from './scm-main';
 import { DecorationsMainImpl } from './decorations/decorations-main';
@@ -160,9 +159,6 @@ export function setUpPluginApi(rpc: RPCProtocol, container: interfaces.Container
 
     const tasksMain = new TasksMainImpl(rpc, container);
     rpc.set(PLUGIN_RPC_CONTEXT.TASKS_MAIN, tasksMain);
-
-    const debugMain = new DebugMainImpl(rpc, connectionMain, container);
-    rpc.set(PLUGIN_RPC_CONTEXT.DEBUG_MAIN, debugMain);
 
     const fs = new FileSystemMainImpl(rpc, container);
     const fsEventService = new MainFileSystemEventService(rpc, container);

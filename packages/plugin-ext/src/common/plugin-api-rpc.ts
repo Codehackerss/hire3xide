@@ -58,7 +58,6 @@ import {
     TextDocumentShowOptions,
     WorkspaceRootsChangeEvent,
     Location,
-    Breakpoint,
     ColorPresentation,
     RenameLocation,
     SignatureHelpContext,
@@ -89,9 +88,7 @@ import {
     InlineCompletionContext,
     DocumentDropEdit,
     DataTransferDTO,
-    DocumentDropEditProviderMetadata,
-    DebugStackFrameDTO,
-    DebugThreadDTO
+    DocumentDropEditProviderMetadata
 } from './plugin-api-rpc-model';
 import { ExtPluginApi } from './plugin-ext-api-contribution';
 import { KeysToAnyValues, KeysToKeysToAnyValue } from './types';
@@ -101,8 +98,6 @@ import {
     Progress,
     ProgressOptions,
 } from '@theia/plugin';
-import { DebuggerDescription } from '@theia/debug/lib/common/debug-service';
-import { DebugProtocol } from '@vscode/debugprotocol';
 import { SymbolInformation } from '@theia/core/shared/vscode-languageserver-protocol';
 import * as files from '@theia/filesystem/lib/common/files';
 import { BinaryBuffer } from '@theia/core/lib/common/buffer';
@@ -118,7 +113,6 @@ import { ThemeType } from '@theia/core/lib/common/theme';
 import { Disposable } from '@theia/core/lib/common/disposable';
 import { isString, isObject, QuickInputButtonHandle } from '@theia/core/lib/common';
 import { Severity } from '@theia/core/lib/common/severity';
-import { DebugConfiguration, DebugSessionOptions } from '@theia/debug/lib/common/debug-configuration';
 import * as notebookCommon from '@theia/notebook/lib/common';
 import { CellExecutionUpdateType, CellRange, NotebookCellExecutionState } from '@theia/notebook/lib/common';
 import { LanguagePackBundle } from './language-pack-service';
@@ -1940,21 +1934,6 @@ export enum DebugConfigurationProviderTriggerKind {
     Dynamic = 2
 }
 
-export interface DebugConfigurationProvider {
-    readonly handle: number;
-    readonly type: string;
-    readonly triggerKind: DebugConfigurationProviderTriggerKind;
-    provideDebugConfigurations?(folder: string | undefined): Promise<theia.DebugConfiguration[]>;
-    resolveDebugConfiguration?(
-        folder: string | undefined,
-        debugConfiguration: theia.DebugConfiguration
-    ): Promise<theia.DebugConfiguration | undefined | null>;
-    resolveDebugConfigurationWithSubstitutedVariables?(
-        folder: string | undefined,
-        debugConfiguration: theia.DebugConfiguration
-    ): Promise<theia.DebugConfiguration | undefined | null>;
-}
-
 export interface DebugConfigurationProviderDescriptor {
     readonly handle: number,
     readonly type: string,
@@ -1963,48 +1942,6 @@ export interface DebugConfigurationProviderDescriptor {
     readonly resolveDebugConfigurations: boolean,
     readonly resolveDebugConfigurationWithSubstitutedVariables: boolean
 }
-
-export interface DebugExt {
-    $onSessionCustomEvent(sessionId: string, event: string, body?: any): void;
-    $breakpointsDidChange(added: Breakpoint[], removed: string[], changed: Breakpoint[]): void;
-    $sessionDidCreate(sessionId: string): void;
-    $sessionDidStart(sessionId: string): void;
-    $sessionDidDestroy(sessionId: string): void;
-    $sessionDidChange(sessionId: string | undefined): void;
-    $provideDebugConfigurationsByHandle(handle: number, workspaceFolder: string | undefined): Promise<theia.DebugConfiguration[]>;
-    $resolveDebugConfigurationByHandle(
-        handle: number,
-        workspaceFolder: string | undefined,
-        debugConfiguration: theia.DebugConfiguration
-    ): Promise<theia.DebugConfiguration | undefined | null>;
-    $resolveDebugConfigurationWithSubstitutedVariablesByHandle(
-        handle: number,
-        workspaceFolder: string | undefined,
-        debugConfiguration: DebugConfiguration
-    ): Promise<theia.DebugConfiguration | undefined | null>;
-
-    $onDidChangeActiveFrame(frame: DebugStackFrameDTO | undefined): void;
-    $onDidChangeActiveThread(thread: DebugThreadDTO | undefined): void;
-    $createDebugSession(debugConfiguration: DebugConfiguration, workspaceFolder: string | undefined): Promise<string>;
-    $terminateDebugSession(sessionId: string): Promise<void>;
-    $getTerminalCreationOptions(debugType: string): Promise<TerminalOptionsExt | undefined>;
-}
-
-export interface DebugMain {
-    $appendToDebugConsole(value: string): Promise<void>;
-    $appendLineToDebugConsole(value: string): Promise<void>;
-    $registerDebuggerContribution(description: DebuggerDescription): Promise<void>;
-    $unregisterDebuggerConfiguration(debugType: string): Promise<void>;
-    $registerDebugConfigurationProvider(description: DebugConfigurationProviderDescriptor): void;
-    $unregisterDebugConfigurationProvider(handle: number): Promise<void>;
-    $addBreakpoints(breakpoints: Breakpoint[]): Promise<void>;
-    $removeBreakpoints(breakpoints: string[]): Promise<void>;
-    $startDebugging(folder: theia.WorkspaceFolder | undefined, nameOrConfiguration: string | theia.DebugConfiguration, options: DebugSessionOptions): Promise<boolean>;
-    $stopDebugging(sessionId?: string): Promise<void>;
-    $customRequest(sessionId: string, command: string, args?: any): Promise<DebugProtocol.Response>;
-    $getDebugProtocolBreakpoint(sessionId: string, breakpointId: string): Promise<theia.DebugProtocolBreakpoint | undefined>;
-}
-
 export interface FileSystemExt {
     $acceptProviderInfos(scheme: string, capabilities?: files.FileSystemProviderCapabilities): void;
     $stat(handle: number, resource: UriComponents): Promise<files.Stat>;
@@ -2305,7 +2242,6 @@ export const PLUGIN_RPC_CONTEXT = {
     WEBVIEW_VIEWS_MAIN: createProxyIdentifier<WebviewViewsMain>('WebviewViewsMain'),
     STORAGE_MAIN: createProxyIdentifier<StorageMain>('StorageMain'),
     TASKS_MAIN: createProxyIdentifier<TasksMain>('TasksMain'),
-    DEBUG_MAIN: createProxyIdentifier<DebugMain>('DebugMain'),
     FILE_SYSTEM_MAIN: createProxyIdentifier<FileSystemMain>('FileSystemMain'),
     SCM_MAIN: createProxyIdentifier<ScmMain>('ScmMain'),
     SECRETS_MAIN: createProxyIdentifier<SecretsMain>('SecretsMain'),
@@ -2349,7 +2285,6 @@ export const MAIN_RPC_CONTEXT = {
     WEBVIEW_VIEWS_EXT: createProxyIdentifier<WebviewViewsExt>('WebviewViewsExt'),
     STORAGE_EXT: createProxyIdentifier<StorageExt>('StorageExt'),
     TASKS_EXT: createProxyIdentifier<TasksExt>('TasksExt'),
-    DEBUG_EXT: createProxyIdentifier<DebugExt>('DebugExt'),
     FILE_SYSTEM_EXT: createProxyIdentifier<FileSystemExt>('FileSystemExt'),
     ExtHostFileSystemEventService: createProxyIdentifier<ExtHostFileSystemEventServiceShape>('ExtHostFileSystemEventService'),
     SCM_EXT: createProxyIdentifier<ScmExt>('ScmExt'),

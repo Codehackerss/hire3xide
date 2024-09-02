@@ -19,7 +19,8 @@
 import { dynamicRequire, removeFromCache } from '@theia/core/lib/node/dynamic-require';
 import { ContainerModule, inject, injectable, postConstruct, unmanaged } from '@theia/core/shared/inversify';
 import { AbstractPluginManagerExtImpl, PluginHost, PluginManagerExtImpl } from '../../plugin/plugin-manager';
-import { MAIN_RPC_CONTEXT, Plugin, PluginAPIFactory, PluginManager,
+import {
+    MAIN_RPC_CONTEXT, Plugin, PluginAPIFactory, PluginManager,
     LocalizationExt
 } from '../../common/plugin-api-rpc';
 import { PluginMetadata, PluginModel } from '../../common/plugin-protocol';
@@ -27,7 +28,6 @@ import { createAPIFactory } from '../../plugin/plugin-context';
 import { EnvExtImpl } from '../../plugin/env';
 import { PreferenceRegistryExtImpl } from '../../plugin/preference-registry';
 import { ExtPluginApi, ExtPluginApiBackendInitializationFn } from '../../common/plugin-ext-api-contribution';
-import { DebugExtImpl } from '../../plugin/debug/debug-ext';
 import { EditorsAndDocumentsExtImpl } from '../../plugin/editors-and-documents';
 import { WorkspaceExtImpl } from '../../plugin/workspace';
 import { MessageRegistryExt } from '../../plugin/message-registry';
@@ -48,7 +48,6 @@ import { PluginApiCache } from '../../plugin/node/plugin-container-module';
 export interface ExtInterfaces {
     envExt: EnvExtImpl,
     storageExt: KeyValueStorageProxy,
-    debugExt: DebugExtImpl,
     editorsAndDocumentsExt: EditorsAndDocumentsExtImpl,
     messageRegistryExt: MessageRegistryExt,
     workspaceExt: WorkspaceExtImpl,
@@ -273,7 +272,7 @@ export abstract class AbstractPluginHostRPC<PM extends AbstractPluginManagerExtI
      * @param extApi the extension API to initialize, if appropriate
      * @throws if any error occurs in initializing the extension API
      */
-     protected abstract initExtApi(extApi: ExtPluginApi): void;
+    protected abstract initExtApi(extApi: ExtPluginApi): void;
 }
 
 /**
@@ -289,9 +288,6 @@ export class PluginHostRPC extends AbstractPluginHostRPC<PluginManagerExtImpl, P
 
     @inject(KeyValueStorageProxy)
     protected readonly keyValueStorageProxy: KeyValueStorageProxy;
-
-    @inject(DebugExtImpl)
-    protected readonly debugExt: DebugExtImpl;
 
     @inject(EditorsAndDocumentsExtImpl)
     protected readonly editorsAndDocumentsExt: EditorsAndDocumentsExtImpl;
@@ -336,7 +332,6 @@ export class PluginHostRPC extends AbstractPluginHostRPC<PluginManagerExtImpl, P
         return {
             envExt: this.envExt,
             storageExt: this.keyValueStorageProxy,
-            debugExt: this.debugExt,
             editorsAndDocumentsExt: this.editorsAndDocumentsExt,
             messageRegistryExt: this.messageRegistryExt,
             workspaceExt: this.workspaceExt,
@@ -351,10 +346,10 @@ export class PluginHostRPC extends AbstractPluginHostRPC<PluginManagerExtImpl, P
 
     protected createAPIFactory(extInterfaces: ExtInterfaces): PluginAPIFactory {
         const {
-            envExt, debugExt, preferenceRegistryExt, editorsAndDocumentsExt, workspaceExt,
+            envExt, preferenceRegistryExt, editorsAndDocumentsExt, workspaceExt,
             messageRegistryExt, clipboardExt, webviewExt, localizationExt
         } = extInterfaces;
-        return createAPIFactory(this.rpc, this.pluginManager, envExt, debugExt, preferenceRegistryExt,
+        return createAPIFactory(this.rpc, this.pluginManager, envExt, preferenceRegistryExt,
             editorsAndDocumentsExt, workspaceExt, messageRegistryExt, clipboardExt, webviewExt,
             localizationExt);
     }

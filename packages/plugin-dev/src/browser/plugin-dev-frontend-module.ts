@@ -24,14 +24,11 @@ import { FrontendApplicationContribution, WebSocketConnectionProvider } from '@t
 import { HostedPluginFrontendContribution } from './hosted-plugin-frontend-contribution';
 import { CommandContribution } from '@theia/core/lib/common/command';
 import { PluginDevServer, pluginDevServicePath } from '../common/plugin-dev-protocol';
-import { DebugContribution } from '@theia/debug/lib/browser/debug-contribution';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bindHostedPluginPreferences(bind);
     bind(HostedPluginLogViewer).toSelf().inSingletonScope();
     bind(HostedPluginManagerClient).toSelf().inSingletonScope();
-    bind(DebugContribution).toService(HostedPluginManagerClient);
-
     bind(FrontendApplicationContribution).to(HostedPluginInformer).inSingletonScope();
     bind(FrontendApplicationContribution).to(HostedPluginController).inSingletonScope();
 

@@ -34,6 +34,7 @@
   "dependencies": {
     "@theia/application-manager": "1.52.0",
     "@theia/application-package": "1.52.0",
+    "@theia/cli": "file:",
     "@theia/ffmpeg": "1.52.0",
     "@theia/localization-manager": "1.52.0",
     "@theia/ovsx-client": "1.52.0",

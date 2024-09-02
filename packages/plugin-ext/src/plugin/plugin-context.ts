@@ -28,8 +28,7 @@ import {
     PluginManager,
     PluginAPIFactory,
     MainMessageType,
-    DebugConfigurationProviderTriggerKind,
-    PLUGIN_RPC_CONTEXT
+    DebugConfigurationProviderTriggerKind
 } from '../common/plugin-api-rpc';
 import { RPCProtocol } from '../common/rpc-protocol';
 import { MessageRegistryExt } from './message-registry';
@@ -120,12 +119,9 @@ import {
     DebugAdapterExecutable,
     DebugAdapterServer,
     DebugAdapterNamedPipeServer,
-    DebugAdapterInlineImplementation,
     Breakpoint,
     SourceBreakpoint,
     FunctionBreakpoint,
-    DebugStackFrame,
-    DebugThread,
     FoldingRange,
     FoldingRangeKind,
     SelectionRange,
@@ -246,9 +242,7 @@ import { NotificationExtImpl } from './notification';
 import { score } from '@theia/editor/lib/common/language-selector';
 import { MarkdownString } from './markdown-string';
 import { TreeViewsExtImpl } from './tree/tree-views';
-import { ConnectionImpl } from '../common/connection';
 import { TasksExtImpl } from './tasks/tasks';
-import { DebugExtImpl } from './debug/debug-ext';
 import { FileSystemExtImpl } from './file-system-ext-impl';
 import { ScmExtImpl } from './scm';
 import { DecorationsExtImpl } from './decorations';
@@ -280,7 +274,6 @@ export function createAPIFactory(
     rpc: RPCProtocol,
     pluginManager: PluginManager,
     envExt: EnvExtImpl,
-    debugExt: DebugExtImpl,
     preferenceRegistryExt: PreferenceRegistryExtImpl,
     editorsAndDocumentsExt: EditorsAndDocumentsExtImpl,
     workspaceExt: WorkspaceExtImpl,
@@ -308,7 +301,6 @@ export function createAPIFactory(
     const outputChannelRegistryExt = rpc.set(MAIN_RPC_CONTEXT.OUTPUT_CHANNEL_REGISTRY_EXT, new OutputChannelRegistryExtImpl(rpc));
     const treeViewsExt = rpc.set(MAIN_RPC_CONTEXT.TREE_VIEWS_EXT, new TreeViewsExtImpl(rpc, commandRegistry));
     const tasksExt = rpc.set(MAIN_RPC_CONTEXT.TASKS_EXT, new TasksExtImpl(rpc, terminalExt));
-    const connectionExt = rpc.set(MAIN_RPC_CONTEXT.CONNECTION_EXT, new ConnectionImpl(rpc.getProxy(PLUGIN_RPC_CONTEXT.CONNECTION_MAIN)));
     const fileSystemExt = rpc.set(MAIN_RPC_CONTEXT.FILE_SYSTEM_EXT, new FileSystemExtImpl(rpc));
     const languagesExt = rpc.set(MAIN_RPC_CONTEXT.LANGUAGES_EXT, new LanguagesExtImpl(rpc, documents, commandRegistry, fileSystemExt));
     const extHostFileSystemEvent = rpc.set(MAIN_RPC_CONTEXT.ExtHostFileSystemEventService, new ExtHostFileSystemEventService(rpc, editorsAndDocumentsExt));
@@ -323,7 +315,6 @@ export function createAPIFactory(
     const webviewViewsExt = rpc.set(MAIN_RPC_CONTEXT.WEBVIEW_VIEWS_EXT, new WebviewViewsExtImpl(rpc, webviewExt));
     const telemetryExt = rpc.set(MAIN_RPC_CONTEXT.TELEMETRY_EXT, new TelemetryExtImpl());
     const testingExt = rpc.set(MAIN_RPC_CONTEXT.TESTING_EXT, new TestingExtImpl(rpc, commandRegistry));
-    rpc.set(MAIN_RPC_CONTEXT.DEBUG_EXT, debugExt);
 
     return function (plugin: InternalPlugin): typeof theia {
         const authentication: typeof theia.authentication = {
@@ -1072,75 +1063,7 @@ export function createAPIFactory(
             }
         };
 
-        const debuggersContributions = plugin.rawModel.contributes && plugin.rawModel.contributes.debuggers || [];
-        debugExt.assistedInject(connectionExt, commandRegistry);
-        debugExt.registerDebuggersContributions(plugin.pluginFolder, plugin.model.entryPoint.frontend ? 'frontend' : 'backend', debuggersContributions);
         const debug: typeof theia.debug = {
-            get activeDebugSession(): theia.DebugSession | undefined {
-                return debugExt.activeDebugSession;
-            },
-            get activeDebugConsole(): theia.DebugConsole {
-                return debugExt.activeDebugConsole;
-            },
-            get breakpoints(): theia.Breakpoint[] {
-                return debugExt.breakpoints;
-            },
-            get onDidChangeActiveDebugSession(): theia.Event<theia.DebugSession | undefined> {
-                return debugExt.onDidChangeActiveDebugSession;
-            },
-            get onDidStartDebugSession(): theia.Event<theia.DebugSession> {
-                return debugExt.onDidStartDebugSession;
-            },
-            get onDidReceiveDebugSessionCustomEvent(): theia.Event<theia.DebugSessionCustomEvent> {
-                return debugExt.onDidReceiveDebugSessionCustomEvent;
-            },
-            get onDidTerminateDebugSession(): theia.Event<theia.DebugSession> {
-                return debugExt.onDidTerminateDebugSession;
-            },
-            get onDidChangeBreakpoints(): theia.Event<theia.BreakpointsChangeEvent> {
-                return debugExt.onDidChangeBreakpoints;
-            },
-            get activeStackItem(): DebugThread | DebugStackFrame | undefined {
-                return debugExt.activeStackItem;
-            },
-            get onDidChangeActiveStackItem(): theia.Event<DebugThread | DebugStackFrame | undefined> {
-                return debugExt.onDidChangeActiveStackItem;
-            },
-            registerDebugAdapterDescriptorFactory(debugType: string, factory: theia.DebugAdapterDescriptorFactory): Disposable {
-                return debugExt.registerDebugAdapterDescriptorFactory(debugType, factory);
-            },
-            registerDebugConfigurationProvider(
-                debugType: string,
-                provider: theia.DebugConfigurationProvider,
-                triggerKind?: theia.DebugConfigurationProviderTriggerKind
-            ): Disposable {
-                return debugExt.registerDebugConfigurationProvider(debugType, provider, triggerKind || DebugConfigurationProviderTriggerKind.Initial);
-            },
-            registerDebugAdapterTrackerFactory(debugType: string, factory: theia.DebugAdapterTrackerFactory): Disposable {
-                return debugExt.registerDebugAdapterTrackerFactory(debugType, factory);
-            },
-            startDebugging(
-                folder: theia.WorkspaceFolder | undefined,
-                nameOrConfiguration: string | theia.DebugConfiguration,
-                parentSessionOrOptions?: theia.DebugSession | theia.DebugSessionOptions
-            ): Thenable<boolean> {
-                if (!parentSessionOrOptions || (typeof parentSessionOrOptions === 'object' && 'configuration' in parentSessionOrOptions)) {
-                    return debugExt.startDebugging(folder, nameOrConfiguration, { parentSession: parentSessionOrOptions });
-                }
-                return debugExt.startDebugging(folder, nameOrConfiguration, parentSessionOrOptions || {});
-            },
-            stopDebugging(session?: theia.DebugSession): Thenable<void> {
-                return debugExt.stopDebugging(session);
-            },
-            addBreakpoints(breakpoints: readonly theia.Breakpoint[]): void {
-                debugExt.addBreakpoints(breakpoints);
-            },
-            removeBreakpoints(breakpoints: readonly theia.Breakpoint[]): void {
-                debugExt.removeBreakpoints(breakpoints);
-            },
-            asDebugSourceUri(source: theia.DebugProtocolSource, session?: theia.DebugSession): theia.Uri {
-                return debugExt.asDebugSourceUri(source, session);
-            },
             /** @stubbed Due to proposed API */
             registerDebugVisualizationProvider: () => Disposable.NULL,
             /** @stubbed Due to proposed API */
@@ -1387,13 +1310,10 @@ export function createAPIFactory(
             DebugAdapterExecutable,
             DebugAdapterServer,
             DebugAdapterNamedPipeServer,
-            DebugAdapterInlineImplementation,
             DebugConfigurationProviderTriggerKind,
             Breakpoint,
             SourceBreakpoint,
             FunctionBreakpoint,
-            DebugStackFrame,
-            DebugThread,
             Color,
             ColorInformation,
             ColorPresentation,

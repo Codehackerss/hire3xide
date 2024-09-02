@@ -25,7 +25,6 @@ import { EnvExtImpl } from '../../plugin/env';
 import { EnvNodeExtImpl } from '../../plugin/node/env-node-ext';
 import { LocalizationExtImpl } from '../../plugin/localization-ext';
 import { PreferenceRegistryExtImpl } from '../../plugin/preference-registry';
-import { DebugExtImpl } from '../../plugin/debug/debug-ext';
 import { EditorsAndDocumentsExtImpl } from '../../plugin/editors-and-documents';
 import { WorkspaceExtImpl } from '../../plugin/workspace';
 import { MessageRegistryExt } from '../../plugin/message-registry';
@@ -58,7 +57,6 @@ export default new ContainerModule(bind => {
     bind(InternalSecretsExt).toService(SecretsExtImpl);
     bind(SecretsExtImpl).toSelf().inSingletonScope();
     bind(PreferenceRegistryExtImpl).toSelf().inSingletonScope();
-    bind(DebugExtImpl).toSelf().inSingletonScope();
     bind(EditorsAndDocumentsExtImpl).toSelf().inSingletonScope();
     bind(WorkspaceExtImpl).toSelf().inSingletonScope();
     bind(MessageRegistryExt).toSelf().inSingletonScope();

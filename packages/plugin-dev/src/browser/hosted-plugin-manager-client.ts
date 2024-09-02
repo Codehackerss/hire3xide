@@ -16,19 +16,15 @@
 
 import { injectable, inject, postConstruct } from '@theia/core/shared/inversify';
 import URI from '@theia/core/lib/common/uri';
-import { Path } from '@theia/core/lib/common/path';
 import { MessageService, Command, Emitter, Event } from '@theia/core/lib/common';
 import { LabelProvider, isNative, AbstractDialog } from '@theia/core/lib/browser';
 import { WindowService } from '@theia/core/lib/browser/window/window-service';
 import { WorkspaceService } from '@theia/workspace/lib/browser';
 import { FileDialogService } from '@theia/filesystem/lib/browser';
 import { PluginDebugConfiguration, PluginDevServer } from '../common/plugin-dev-protocol';
-import { LaunchVSCodeArgument, LaunchVSCodeRequest, LaunchVSCodeResult } from '@theia/debug/lib/browser/debug-contribution';
-import { DebugSessionManager } from '@theia/debug/lib/browser/debug-session-manager';
 import { HostedPluginPreferences } from './hosted-plugin-preferences';
 import { FileService } from '@theia/filesystem/lib/browser/file-service';
 import { EnvVariablesServer } from '@theia/core/lib/common/env-variables';
-import { DebugSessionConnection } from '@theia/debug/lib/browser/debug-session-connection';
 import { nls } from '@theia/core/lib/common/nls';
 
 /**
@@ -84,8 +80,6 @@ export interface HostedInstanceData {
 export class HostedPluginManagerClient {
     private openNewTabAskDialog: OpenHostedInstanceLinkDialog;
 
-    private connection: DebugSessionConnection;
-
     // path to the plugin on the file system
     protected pluginLocation: URI | undefined;
 
@@ -114,8 +108,6 @@ export class HostedPluginManagerClient {
     protected readonly environments: EnvVariablesServer;
     @inject(WorkspaceService)
     protected readonly workspaceService: WorkspaceService;
-    @inject(DebugSessionManager)
-    protected readonly debugSessionManager: DebugSessionManager;
     @inject(HostedPluginPreferences)
     protected readonly hostedPluginPreferences: HostedPluginPreferences;
     @inject(FileDialogService)
@@ -177,39 +169,6 @@ export class HostedPluginManagerClient {
             this.stop();
         }
     }
-
-    async debug(config?: PluginDebugConfiguration): Promise<string | undefined> {
-        await this.start(this.setDebugConfig(config));
-        await this.startDebugSessionManager();
-
-        return this.pluginInstanceURL;
-    }
-
-    async startDebugSessionManager(): Promise<void> {
-        let outFiles: string[] | undefined = undefined;
-        if (this.pluginLocation && this.hostedPluginPreferences['hosted-plugin.launchOutFiles'].length > 0) {
-            const fsPath = await this.fileService.fsPath(this.pluginLocation);
-            if (fsPath) {
-                outFiles = this.hostedPluginPreferences['hosted-plugin.launchOutFiles'].map(outFile =>
-                    outFile.replace('${pluginPath}', new Path(fsPath).toString())
-                );
-            }
-        }
-        const name = nls.localize('theia/plugin-dev/hostedPlugin', 'Hosted Plugin');
-        await this.debugSessionManager.start({
-            name,
-            configuration: {
-                type: 'node',
-                request: 'attach',
-                timeout: 30000,
-                name,
-                smartStep: true,
-                sourceMaps: !!outFiles,
-                outFiles
-            }
-        });
-    }
-
     async stop(checkRunning: boolean = true): Promise<void> {
         if (checkRunning && !await this.hostedPluginServer.isHostedPluginInstanceRunning()) {
             this.messageService.warn(nls.localize('theia/plugin-dev/notRunning', 'Hosted instance is not running.'));
@@ -244,7 +203,6 @@ export class HostedPluginManagerClient {
                             debugMode: this.hostedPluginPreferences['hosted-plugin.debugMode'],
                             debugPort: [...this.hostedPluginPreferences['hosted-plugin.debugPorts']]
                         });
-                        await this.startDebugSessionManager();
                     } else {
                         this.pluginInstanceURL = await this.hostedPluginServer.runHostedPluginInstance(this.pluginLocation!.toString());
                     }
@@ -296,18 +254,6 @@ export class HostedPluginManagerClient {
         }
     }
 
-    register(configType: string, connection: DebugSessionConnection): void {
-        if (configType === 'pwa-extensionHost') {
-            this.connection = connection;
-            this.connection.onRequest('launchVSCode', (request: LaunchVSCodeRequest) => this.launchVSCode(request));
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            this.connection.on('exited', async (args: any) => {
-                await this.stop();
-            });
-        }
-    }
-
     /**
      * Opens window with URL to the running plugin instance.
      */
@@ -327,62 +273,9 @@ export class HostedPluginManagerClient {
         }
     }
 
-    protected async launchVSCode({ arguments: { args } }: LaunchVSCodeRequest): Promise<LaunchVSCodeResult> {
-        let result = {};
-        let instanceURI;
-
-        const sessions = this.debugSessionManager.sessions.filter(session => session.id !== this.connection.sessionId);
-
-        /* if `launchVSCode` is invoked and sessions do not exist - it means that `start` debug was invoked.
-           if `launchVSCode` is invoked and sessions do exist - it means that `restartSessions()` was invoked,
-           which invoked `this.sendRequest('restart', {})`, which restarted `vscode-builtin-js-debug` plugin which is
-           connected to first session (sessions[0]), which means that other existing (child) sessions need to be terminated
-           and new ones will be created by running `startDebugSessionManager()`
-         */
-        if (sessions.length > 0) {
-            sessions.forEach(session => this.debugSessionManager.terminateSession(session));
-            await this.startDebugSessionManager();
-            instanceURI = this.pluginInstanceURL;
-        } else {
-            instanceURI = await this.debug(this.getDebugPluginConfig(args));
-        }
-
-        if (instanceURI) {
-            const instanceURL = new URL(instanceURI);
-            if (instanceURL.port) {
-                result = Object.assign(result, { rendererDebugPort: instanceURL.port });
-            }
-        }
-        return result;
-    }
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     protected getErrorMessage(error: any): string {
         return error?.message?.substring(error.message.indexOf(':') + 1) || '';
-    }
-
-    private setDebugConfig(config?: PluginDebugConfiguration): PluginDebugConfiguration {
-        config = Object.assign(config || {}, { debugMode: this.hostedPluginPreferences['hosted-plugin.debugMode'] });
-        if (config.pluginLocation) {
-            this.pluginLocation = new URI((!config.pluginLocation.startsWith('/') ? '/' : '') + config.pluginLocation.replace(/\\/g, '/')).withScheme('file');
-        }
-        if (config.debugPort === undefined) {
-            config.debugPort = [...this.hostedPluginPreferences['hosted-plugin.debugPorts']];
-        }
-        return config;
-    }
-
-    private getDebugPluginConfig(args: LaunchVSCodeArgument[]): PluginDebugConfiguration {
-        let pluginLocation;
-        for (const arg of args) {
-            if (arg?.prefix === '--extensionDevelopmentPath=') {
-                pluginLocation = arg.path;
-            }
-        }
-
-        return {
-            pluginLocation
-        };
     }
 }
 

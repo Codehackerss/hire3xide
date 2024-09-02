@@ -27,9 +27,6 @@
       "path": "../core"
     },
     {
-      "path": "../debug"
-    },
-    {
       "path": "../editor"
     },
     {

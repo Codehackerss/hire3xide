@@ -30,10 +30,8 @@ import { InternalSecretsExt, SecretsExtImpl } from '../../../plugin/secrets-ext'
 import { TerminalServiceExtImpl } from '../../../plugin/terminal-ext';
 import { WebviewsExtImpl } from '../../../plugin/webviews';
 import { WorkspaceExtImpl } from '../../../plugin/workspace';
-import { createDebugExtStub } from './debug-stub';
 import { EnvExtImpl } from '../../../plugin/env';
 import { WorkerEnvExtImpl } from './worker-env-ext';
-import { DebugExtImpl } from '../../../plugin/debug/debug-ext';
 import { LocalizationExtImpl } from '../../../plugin/localization-ext';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,11 +63,6 @@ export default new ContainerModule(bind => {
     bind(SecretsExtImpl).toSelf().inSingletonScope();
     bind(InternalSecretsExt).toService(SecretsExtImpl);
     bind(PreferenceRegistryExtImpl).toSelf().inSingletonScope();
-    bind(DebugExtImpl).toDynamicValue(({ container }) => {
-        const child = container.createChild();
-        child.bind(DebugExtImpl).toSelf();
-        return createDebugExtStub(child);
-    }).inSingletonScope();
     bind(EditorsAndDocumentsExtImpl).toSelf().inSingletonScope();
     bind(WorkspaceExtImpl).toSelf().inSingletonScope();
     bind(MessageRegistryExt).toSelf().inSingletonScope();

@@ -42,10 +42,6 @@ import { TextContentResourceResolver } from './workspace-main';
 import { MainPluginApiProvider } from '../../common/plugin-ext-api-contribution';
 import { PluginPathsService, pluginPathsServicePath } from '../common/plugin-paths-protocol';
 import { KeybindingsContributionPointHandler } from './keybindings/keybindings-contribution-handler';
-import { DebugSessionContributionRegistry } from '@theia/debug/lib/browser/debug-session-contribution';
-import { PluginDebugSessionContributionRegistry } from './debug/plugin-debug-session-contribution-registry';
-import { PluginDebugService } from './debug/plugin-debug-service';
-import { DebugService } from '@theia/debug/lib/common/debug-service';
 import { PluginSharedStyle } from './plugin-shared-style';
 import { SelectionProviderCommandContribution } from './selection-provider-command';
 import { ViewContextKeyService } from './view/view-context-key-service';
@@ -237,12 +233,6 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(TextContentResourceResolver).toSelf().inSingletonScope();
     bind(ResourceResolver).toService(TextContentResourceResolver);
     bindContributionProvider(bind, MainPluginApiProvider);
-
-    bind(PluginDebugService).toSelf().inSingletonScope();
-    rebind(DebugService).toService(PluginDebugService);
-    bind(PluginDebugSessionContributionRegistry).toSelf().inSingletonScope();
-    rebind(DebugSessionContributionRegistry).toService(PluginDebugSessionContributionRegistry);
-
     bind(CommentsService).to(PluginCommentService).inSingletonScope();
     bind(CommentingRangeDecorator).toSelf().inSingletonScope();
     bind(CommentsContribution).toSelf().inSingletonScope();

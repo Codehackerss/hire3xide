@@ -41,8 +41,6 @@ import { PluginContributionHandler } from '../../main/browser/plugin-contributio
 import { getQueryParameters } from '../../main/browser/env-main';
 import { getPreferences } from '../../main/browser/preference-registry-main';
 import { Deferred } from '@theia/core/lib/common/promise-util';
-import { DebugSessionManager } from '@theia/debug/lib/browser/debug-session-manager';
-import { DebugConfigurationManager } from '@theia/debug/lib/browser/debug-configuration-manager';
 import { WaitUntilEvent } from '@theia/core/lib/common/event';
 import { FileSearchService } from '@theia/file-search/lib/common/file-search-service';
 import { FrontendApplicationStateService } from '@theia/core/lib/browser/frontend-application-state';
@@ -128,12 +126,6 @@ export class HostedPluginSupport extends AbstractHostedPluginSupport<PluginManag
     @inject(CommandRegistry)
     protected readonly commands: CommandRegistry;
 
-    @inject(DebugSessionManager)
-    protected readonly debugSessionManager: DebugSessionManager;
-
-    @inject(DebugConfigurationManager)
-    protected readonly debugConfigurationManager: DebugConfigurationManager;
-
     @inject(FileService)
     protected readonly fileService: FileService;
 
@@ -195,11 +187,7 @@ export class HostedPluginSupport extends AbstractHostedPluginSupport<PluginManag
         }
         languageService.onDidRequestBasicLanguageFeatures(language => this.activateByLanguage(language));
         this.commands.onWillExecuteCommand(event => this.ensureCommandHandlerRegistration(event));
-        this.debugSessionManager.onWillStartDebugSession(event => this.ensureDebugActivation(event));
-        this.debugSessionManager.onWillResolveDebugConfiguration(event => this.ensureDebugActivation(event, 'onDebugResolve', event.debugType));
-        this.debugConfigurationManager.onWillProvideDebugConfiguration(event => this.ensureDebugActivation(event, 'onDebugInitialConfigurations'));
         // Activate all providers of dynamic configurations, i.e. Let the user pick a configuration from all the available ones.
-        this.debugConfigurationManager.onWillProvideDynamicDebugConfiguration(event => this.ensureDebugActivation(event, 'onDebugDynamicConfigurations', ALL_ACTIVATION_EVENT));
         this.viewRegistry.onDidExpandView(id => this.activateByView(id));
         this.taskProviderRegistry.onWillProvideTaskProvider(event => this.ensureTaskActivation(event));
         this.taskResolverRegistry.onWillProvideTaskResolver(event => this.ensureTaskActivation(event));

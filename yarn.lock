@@ -1746,6 +1746,36 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
+"@theia/cli@file:dev-packages/cli":
+  version "1.52.0"
+  dependencies:
+    "@theia/application-manager" "1.52.0"
+    "@theia/application-package" "1.52.0"
+    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-d0a6b55b-1d4c-460d-8a30-bdc91d7cdd51-1725259307779/node_modules/@theia/cli"
+    "@theia/ffmpeg" "1.52.0"
+    "@theia/localization-manager" "1.52.0"
+    "@theia/ovsx-client" "1.52.0"
+    "@theia/request" "1.52.0"
+    "@types/chai" "^4.2.7"
+    "@types/mocha" "^10.0.0"
+    "@types/node-fetch" "^2.5.7"
+    chai "^4.3.10"
+    chalk "4.0.0"
+    decompress "^4.2.1"
+    escape-string-regexp "4.0.0"
+    glob "^8.0.3"
+    http-server "^14.1.1"
+    limiter "^2.1.0"
+    log-update "^4.0.0"
+    mocha "^10.1.0"
+    patch-package "^8.0.0"
+    puppeteer "19.7.2"
+    puppeteer-core "19.7.2"
+    puppeteer-to-istanbul "1.4.0"
+    temp "^0.9.1"
+    tslib "^2.6.2"
+    yargs "^15.3.1"
+
 "@theia/monaco-editor-core@1.83.101":
   version "1.83.101"
   resolved "https://registry.yarnpkg.com/@theia/monaco-editor-core/-/monaco-editor-core-1.83.101.tgz#a0577396fb4c69540536df2d7fed2de4399c4fde"
@@ -2037,11 +2067,6 @@
   version "4.14.202"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.202.tgz#f09dbd2fb082d507178b2f2a5c7e74bd72ff98f8"
   integrity sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==
-
-"@types/long@^4.0.0":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.2.tgz#b74129719fc8d11c01868010082d483b7545591a"
-  integrity sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==
 
 "@types/luxon@^2.3.2":
   version "2.4.0"
@@ -4494,7 +4519,7 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@4.3.4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4, debug@~4.3.1, debug@~4.3.2, debug@~4.3.4:
+debug@4, debug@4.3.4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.3, debug@^4.3.4, debug@~4.3.1, debug@~4.3.2, debug@~4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -7804,11 +7829,6 @@ log-update@^4.0.0:
     slice-ansi "^4.0.0"
     wrap-ansi "^6.2.0"
 
-long@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/long/-/long-4.0.0.tgz#9a7b71cfb7d361a194ea555241c92f7468d5bf28"
-  integrity sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==
-
 loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
@@ -9513,12 +9533,12 @@ playwright@1.41.2:
 "plugin-a@file:sample-plugins/sample-namespace/plugin-a":
   version "1.52.0"
   dependencies:
-    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-623ee517-40bf-4c93-be33-d45b6d2fce64-1725024258232/node_modules/plugin-a"
+    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-e5da4e1b-73cf-4bfa-923d-8a28c23c0bc7-1725259307792/node_modules/plugin-a"
 
 "plugin-b@file:sample-plugins/sample-namespace/plugin-b":
   version "1.52.0"
   dependencies:
-    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-f07d119b-7f2b-408f-a8f8-8608d5146dd7-1725024258233/node_modules/plugin-b"
+    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-aed8d589-9de6-4475-b658-98b54d4d3b4a-1725259307790/node_modules/plugin-b"
 
 portfinder@^1.0.28:
   version "1.0.32"

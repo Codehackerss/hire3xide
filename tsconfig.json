@@ -67,9 +67,6 @@
       "path": "packages/core"
     },
     {
-      "path": "packages/debug"
-    },
-    {
       "path": "packages/dev-container"
     },
     {
@@ -98,9 +95,6 @@
     },
     {
       "path": "packages/markers"
-    },
-    {
-      "path": "packages/memory-inspector"
     },
     {
       "path": "packages/messages"
