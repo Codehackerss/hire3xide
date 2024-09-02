@@ -42,13 +42,6 @@ export namespace HostedPluginCommands {
         category: HOSTED_PLUGIN_CATEGORY,
         label: 'Start Instance'
     }, 'theia/plugin-dev/startInstance', HOSTED_PLUGIN_CATEGORY_KEY);
-
-    export const DEBUG = Command.toLocalizedCommand({
-        id: 'hosted-plugin:debug',
-        category: HOSTED_PLUGIN_CATEGORY,
-        label: 'Debug Instance'
-    }, 'theia/plugin-dev/debugInstance', HOSTED_PLUGIN_CATEGORY_KEY);
-
     export const STOP = Command.toLocalizedCommand({
         id: 'hosted-plugin:stop',
         category: HOSTED_PLUGIN_CATEGORY,

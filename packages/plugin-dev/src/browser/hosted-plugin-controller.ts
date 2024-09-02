@@ -340,17 +340,6 @@ export class HostedPluginController implements FrontendApplicationContribution {
             type: 'command',
             command: HostedPluginCommands.START.id
         });
-
-        commands.addCommand(HostedPluginCommands.DEBUG.id, {
-            label: nls.localize('theia/plugin-dev/debugInstance', 'Debug Instance'),
-            icon: codicon('debug'),
-            execute: () => setTimeout(() => this.hostedPluginManagerClient.debug(), 100)
-        });
-
-        menu.addItem({
-            type: 'command',
-            command: HostedPluginCommands.DEBUG.id
-        });
     }
 
 }

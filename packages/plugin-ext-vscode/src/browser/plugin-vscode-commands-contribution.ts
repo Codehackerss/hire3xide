@@ -14,7 +14,7 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
 // *****************************************************************************
 
-import { Command, CommandContribution, CommandRegistry, environment, isOSX, CancellationTokenSource, MessageService } from '@theia/core';
+import { Command, CommandContribution, CommandRegistry, CancellationTokenSource, MessageService } from '@theia/core';
 import {
     ApplicationShell,
     CommonCommands,
@@ -333,12 +333,6 @@ export class PluginVscodeCommandsContribution implements CommandContribution {
          * because of it we filter out editors from views based on `NavigatableWidget.is`
          * and apply actions only to them
          */
-        if (!environment.electron.is() || isOSX) {
-            commands.registerCommand({ id: 'workbench.action.files.openFileFolder' }, {
-                execute: () => commands.executeCommand(WorkspaceCommands.OPEN.id)
-            });
-        }
-
         commands.registerCommand({ id: 'workbench.action.files.openFile' }, {
             execute: () => commands.executeCommand(WorkspaceCommands.OPEN_FILE.id)
         });

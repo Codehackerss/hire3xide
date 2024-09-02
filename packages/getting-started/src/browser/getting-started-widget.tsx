@@ -191,17 +191,6 @@ export class GettingStartedWidget extends ReactWidget {
                 {CommonCommands.NEW_UNTITLED_FILE.label ?? nls.localizeByDefault('New File...')}
             </a>
         </div>;
-
-        const open = requireSingleOpen && <div className='gs-action-container'>
-            <a
-                role={'button'}
-                tabIndex={0}
-                onClick={this.doOpen}
-                onKeyDown={this.doOpenEnter}>
-                {nls.localizeByDefault('Open')}
-            </a>
-        </div>;
-
         const openFile = !requireSingleOpen && <div className='gs-action-container'>
             <a
                 role={'button'}
@@ -235,7 +224,6 @@ export class GettingStartedWidget extends ReactWidget {
         return <div className='gs-section'>
             <h3 className='gs-section-header'><i className={codicon('folder-opened')}></i>{nls.localizeByDefault('Start')}</h3>
             {createFile}
-            {open}
             {openFile}
             {openFolder}
             {openWorkspace}
@@ -416,13 +404,6 @@ export class GettingStartedWidget extends ReactWidget {
     /**
      * Trigger the open command.
      */
-    protected doOpen = () => this.commandRegistry.executeCommand(WorkspaceCommands.OPEN.id);
-    protected doOpenEnter = (e: React.KeyboardEvent) => {
-        if (this.isEnterKey(e)) {
-            this.doOpen();
-        }
-    };
-
     /**
      * Trigger the open file command.
      */

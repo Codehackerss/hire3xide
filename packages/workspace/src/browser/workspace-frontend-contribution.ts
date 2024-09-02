@@ -127,11 +127,6 @@ export class WorkspaceFrontendContribution implements CommandContribution, Keybi
 
     registerCommands(commands: CommandRegistry): void {
         // Not visible/enabled on Windows/Linux in electron.
-        commands.registerCommand(WorkspaceCommands.OPEN, {
-            isEnabled: () => isOSX || !this.isElectron(),
-            isVisible: () => isOSX || !this.isElectron(),
-            execute: () => this.doOpen()
-        });
         // Visible/enabled only on Windows/Linux in electron.
         commands.registerCommand(WorkspaceCommands.OPEN_FILE, {
             isEnabled: () => true,
@@ -171,10 +166,6 @@ export class WorkspaceFrontendContribution implements CommandContribution, Keybi
 
     registerMenus(menus: MenuModelRegistry): void {
         if (isOSX || !this.isElectron()) {
-            menus.registerMenuAction(CommonMenus.FILE_OPEN, {
-                commandId: WorkspaceCommands.OPEN.id,
-                order: 'a00'
-            });
         }
         if (!isOSX && this.isElectron()) {
             menus.registerMenuAction(CommonMenus.FILE_OPEN, {
@@ -222,7 +213,7 @@ export class WorkspaceFrontendContribution implements CommandContribution, Keybi
 
     registerKeybindings(keybindings: KeybindingRegistry): void {
         keybindings.registerKeybinding({
-            command: isOSX || !this.isElectron() ? WorkspaceCommands.OPEN.id : WorkspaceCommands.OPEN_FILE.id,
+            command: WorkspaceCommands.OPEN_FILE.id,
             keybinding: this.isElectron() ? 'ctrlcmd+o' : 'ctrlcmd+alt+o',
         });
         if (!isOSX && this.isElectron()) {
@@ -257,38 +248,6 @@ export class WorkspaceFrontendContribution implements CommandContribution, Keybi
     protected async doOpen(): Promise<URI[] | undefined> {
         if (!isOSX && this.isElectron()) {
             return this.doOpenFile();
-        }
-        const [rootStat] = await this.workspaceService.roots;
-        let selectedUris = await this.fileDialogService.showOpenDialog({
-            title: WorkspaceCommands.OPEN.dialogLabel,
-            canSelectFolders: true,
-            canSelectFiles: true,
-            canSelectMany: true
-        }, rootStat);
-        if (selectedUris) {
-            if (!Array.isArray(selectedUris)) {
-                selectedUris = [selectedUris];
-            }
-            const folders: URI[] = [];
-            //  Only open files then open all folders in a new workspace, as done with Electron see doOpenFolder.
-            for (const uri of selectedUris) {
-                const destination = await this.fileService.resolve(uri);
-                if (destination.isDirectory) {
-                    if (this.getCurrentWorkspaceUri()?.toString() !== uri.toString()) {
-                        folders.push(uri);
-                    }
-                } else {
-                    await open(this.openerService, uri);
-                }
-            }
-            if (folders.length > 0) {
-                const openableURI = await this.getOpenableWorkspaceUri(folders);
-                if (openableURI && (!this.workspaceService.workspace || !openableURI.isEqual(this.workspaceService.workspace.resource))) {
-                    this.workspaceService.open(openableURI);
-                }
-            }
-
-            return selectedUris;
         }
         return undefined;
     }

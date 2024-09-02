@@ -28,9 +28,6 @@ export class HostedPluginFrontendContribution implements CommandContribution {
         commands.registerCommand(HostedPluginCommands.START, {
             execute: () => this.hostedPluginManagerClient.start()
         });
-        commands.registerCommand(HostedPluginCommands.DEBUG, {
-            execute: () => this.hostedPluginManagerClient.debug()
-        });
         commands.registerCommand(HostedPluginCommands.STOP, {
             execute: () => this.hostedPluginManagerClient.stop()
         });
