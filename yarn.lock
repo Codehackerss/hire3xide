@@ -1751,7 +1751,7 @@
   dependencies:
     "@theia/application-manager" "1.52.0"
     "@theia/application-package" "1.52.0"
-    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-ae58e936-e4d1-4236-843d-3c6c6eb4276d-1725282539154/node_modules/@theia/cli"
+    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-e56154dc-cefe-4972-8985-4b3e763f9449-1725300892159/node_modules/@theia/cli"
     "@theia/ffmpeg" "1.52.0"
     "@theia/localization-manager" "1.52.0"
     "@theia/ovsx-client" "1.52.0"
@@ -9601,12 +9601,12 @@ playwright@1.41.2:
 "plugin-a@file:sample-plugins/sample-namespace/plugin-a":
   version "1.52.0"
   dependencies:
-    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-e9fe291e-dc04-4375-936b-6aef7bbf6a0d-1725282539162/node_modules/plugin-a"
+    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-147d1db2-fff6-4c51-90f1-96f54767e412-1725300892170/node_modules/plugin-a"
 
 "plugin-b@file:sample-plugins/sample-namespace/plugin-b":
   version "1.52.0"
   dependencies:
-    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-1e5216ff-ff1e-4116-905a-67d8e2f68061-1725282539163/node_modules/plugin-b"
+    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-1f8de40d-e106-4d01-a718-56d561a41928-1725300892171/node_modules/plugin-b"
 
 portfinder@^1.0.28:
   version "1.0.32"
@@ -12526,11 +12526,6 @@ xtend@^4.0.0, xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-xterm-addon-fit@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.5.0.tgz#2d51b983b786a97dcd6cde805e700c7f913bc596"
-  integrity sha512-DsS9fqhXHacEmsPxBJZvfj2la30Iz9xk+UKjhQgnYNkrUIN5CYLbw7WEfz117c7+S86S/tpHPfvNxJsF5/G8wQ==
-
 xterm-addon-fit@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.8.0.tgz#48ca99015385141918f955ca7819e85f3691d35f"
@@ -12540,11 +12535,6 @@ xterm-addon-search@^0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.13.0.tgz#21286f4db48aa949fbefce34bb8bc0c9d3cec627"
   integrity sha512-sDUwG4CnqxUjSEFh676DlS3gsh3XYCzAvBPSvJ5OPgF3MRL3iHLPfsb06doRicLC2xXNpeG2cWk8x1qpESWJMA==
-
-xterm@^4.16.0:
-  version "4.19.0"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.19.0.tgz#c0f9d09cd61de1d658f43ca75f992197add9ef6d"
-  integrity sha512-c3Cp4eOVsYY5Q839dR5IejghRPpxciGmLWWaP9g+ppfMeBChMeLa1DCA+pmX/jyDZ+zxFOmlJL/82qVdayVoGQ==
 
 xterm@^5.3.0:
   version "5.3.0"

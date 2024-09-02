@@ -267,7 +267,6 @@ import { NotebookRenderersExtImpl } from './notebook/notebook-renderers';
 import { NotebookKernelsExtImpl } from './notebook/notebook-kernels';
 import { NotebookDocumentsExtImpl } from './notebook/notebook-documents';
 import { NotebookEditorsExtImpl } from './notebook/notebook-editors';
-import { TestingExtImpl } from './tests';
 
 export function createAPIFactory(
     rpc: RPCProtocol,
@@ -312,8 +311,6 @@ export function createAPIFactory(
     const customEditorExt = rpc.set(MAIN_RPC_CONTEXT.CUSTOM_EDITORS_EXT, new CustomEditorsExtImpl(rpc, documents, webviewExt, workspaceExt));
     const webviewViewsExt = rpc.set(MAIN_RPC_CONTEXT.WEBVIEW_VIEWS_EXT, new WebviewViewsExtImpl(rpc, webviewExt));
     const telemetryExt = rpc.set(MAIN_RPC_CONTEXT.TELEMETRY_EXT, new TelemetryExtImpl());
-    const testingExt = rpc.set(MAIN_RPC_CONTEXT.TESTING_EXT, new TestingExtImpl(rpc, commandRegistry));
-
     return function (plugin: InternalPlugin): typeof theia {
         const authentication: typeof theia.authentication = {
             registerAuthenticationProvider(id: string, label: string, provider: theia.AuthenticationProvider, options?: theia.AuthenticationProviderOptions): theia.Disposable {
@@ -1036,11 +1033,6 @@ export function createAPIFactory(
             }
         };
 
-        const tests: typeof theia.tests = {
-            createTestController(id, label: string) {
-                return testingExt.createTestController(id, label);
-            }
-        };
         /* End of Tests API */
 
         const plugins: typeof theia.plugins = {
@@ -1190,7 +1182,6 @@ export function createAPIFactory(
             tasks,
             notebooks,
             l10n,
-            tests,
             lm,
             // Types
             StatusBarAlignment: StatusBarAlignment,

@@ -10,8 +10,6 @@ RUN apt-get update && apt-get install -y \
     libx11-dev \
     libxkbfile-dev \
     libsecret-1-dev \
-    openjdk-17-jdk \
-    golang-go \
     python3-setuptools \
     python3-pip \
     curl \
@@ -29,7 +27,6 @@ RUN apt-get update && apt-get install -y \
     git clone https://github.com/Codehackerss/hire3xide.git theia && \
     cd theia && \
     yarn && \
-    yarn add -W react react-dom && \
     yarn download:plugins && \
     yarn browser build && \
     apt-get remove --purge -y build-essential && \
@@ -43,8 +40,6 @@ FROM ubuntu:22.04
 # Install only the necessary runtime dependencies
 RUN apt-get update && apt-get install -y \
     python3 \
-    openjdk-17-jdk \
-    golang-go \
     git \
     openssh-client \
     bash \

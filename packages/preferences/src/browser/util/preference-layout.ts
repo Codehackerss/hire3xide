@@ -174,11 +174,6 @@ export const DEFAULT_LAYOUT: PreferenceLayout[] = [
                 settings: ['search.*']
             },
             {
-                id: 'features.testing',
-                label: nls.localizeByDefault('Testing'),
-                settings: ['testing.*']
-            },
-            {
                 id: 'features.terminal',
                 label: nls.localizeByDefault('Terminal'),
                 settings: ['terminal.*']

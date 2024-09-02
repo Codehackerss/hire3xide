@@ -117,9 +117,7 @@ import * as notebookCommon from '@theia/notebook/lib/common';
 import { CellExecutionUpdateType, CellRange, NotebookCellExecutionState } from '@theia/notebook/lib/common';
 import { LanguagePackBundle } from './language-pack-service';
 import { AccessibilityInformation } from '@theia/core/lib/common/accessibility';
-
-import { TreeDelta } from '@theia/test/lib/common/tree-delta';
-import { TestItemDTO, TestOutputDTO, TestRunDTO, TestRunProfileDTO, TestRunRequestDTO, TestStateChangeDTO } from './test-types';
+import { TestOutputDTO, TestRunDTO, TestRunProfileDTO, TestRunRequestDTO, TestStateChangeDTO } from './test-types';
 import { ArgumentProcessor } from './commands';
 
 export interface PreferenceData {
@@ -2195,8 +2193,6 @@ export interface TestingMain {
     $updateController(controllerId: string, patch: Partial<TestControllerUpdate>): void;
     /** Disposes of the test controller with the given ID */
     $unregisterTestController(controllerId: string): void;
-    $notifyDelta(controllerId: string, diff: TreeDelta<string, TestItemDTO>[]): void;
-
     // --- test run configurations:
 
     /** Called when a new test run profile is available */

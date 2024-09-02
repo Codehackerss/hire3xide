@@ -15317,16 +15317,6 @@ export module '@theia/plugin' {
      * Controllers may also describe how to run tests by creating one or more
      * {@link TestRunProfile} instances.
      */
-    export namespace tests {
-        /**
-         * Creates a new test controller.
-         *
-         * @param id Identifier for the controller, must be globally unique.
-         * @param label A human-readable label for the controller.
-         * @returns An instance of the {@link TestController}.
-         */
-        export function createTestController(id: string, label: string): TestController;
-    }
 
     /**
      * The kind of executions that {@link TestRunProfile TestRunProfiles} control.

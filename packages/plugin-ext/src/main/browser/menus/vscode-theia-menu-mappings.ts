@@ -26,8 +26,6 @@ import { COMMENT_CONTEXT, COMMENT_THREAD_CONTEXT, COMMENT_TITLE } from '../comme
 import { VIEW_ITEM_CONTEXT_MENU } from '../view/tree-view-widget';
 import { WEBVIEW_CONTEXT_MENU, WebviewWidget } from '../webview/webview';
 import { EDITOR_LINENUMBER_CONTEXT_MENU } from '@theia/editor/lib/browser/editor-linenumber-contribution';
-import { TEST_VIEW_CONTEXT_MENU } from '@theia/test/lib/browser/view/test-view-contribution';
-import { TEST_RUNS_CONTEXT_MENU } from '@theia/test/lib/browser/view/test-run-view-contribution';
 import { TerminalMenus } from '@theia/terminal/lib/browser/terminal-frontend-contribution';
 
 export const PLUGIN_EDITOR_TITLE_MENU = ['plugin_editor/title'];
@@ -77,8 +75,6 @@ export const codeToTheiaMappings = new Map<ContributionPoint, MenuPath[]>([
     ['editor/title/run', [PLUGIN_EDITOR_TITLE_RUN_MENU]],
     ['editor/lineNumber/context', [EDITOR_LINENUMBER_CONTEXT_MENU]],
     ['explorer/context', [NAVIGATOR_CONTEXT_MENU]],
-    ['testing/item/context', [TEST_VIEW_CONTEXT_MENU]],
-    ['testing/message/context', [TEST_RUNS_CONTEXT_MENU]],
     ['timeline/item/context', [TIMELINE_ITEM_CONTEXT_MENU]],
     ['view/item/context', [VIEW_ITEM_CONTEXT_MENU]],
     ['view/title', [PLUGIN_VIEW_TITLE_MENU]],

@@ -12,7 +12,6 @@
     "@theia/output": "1.52.0",
     "@theia/ovsx-client": "1.52.0",
     "@theia/search-in-workspace": "1.52.0",
-    "@theia/test": "1.52.0",
     "@theia/toolbar": "1.52.0",
     "@theia/vsx-registry": "1.52.0",
     "@theia/workspace": "1.52.0"

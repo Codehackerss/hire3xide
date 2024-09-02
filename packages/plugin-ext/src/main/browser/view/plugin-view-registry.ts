@@ -35,7 +35,6 @@ import { PROBLEMS_WIDGET_ID } from '@theia/markers/lib/browser/problem/problem-w
 import { OutputWidget } from '@theia/output/lib/browser/output-widget';
 import { TreeViewWidget } from './tree-view-widget';
 import { SEARCH_VIEW_CONTAINER_ID } from '@theia/search-in-workspace/lib/browser/search-in-workspace-factory';
-import { TEST_VIEW_CONTAINER_ID } from '@theia/test/lib/browser/view/test-view-contribution';
 import { WebviewView, WebviewViewResolver } from '../webview-views/webview-views';
 import { WebviewWidget, WebviewWidgetIdentifier } from '../webview/webview';
 import { CancellationToken } from '@theia/core/lib/common/cancellation';
@@ -121,7 +120,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
         [SEARCH_VIEW_CONTAINER_ID, 'workbench.view.search'],
         ['vsx-extensions-view-container', 'workbench.view.extensions'], // cannot use the id from 'vsx-registry' package because of circular dependency
         [PROBLEMS_WIDGET_ID, 'workbench.panel.markers'],
-        [TEST_VIEW_CONTAINER_ID, 'workbench.view.testing'],
         [OutputWidget.ID, 'workbench.panel.output'],
         // Theia does not have a single terminal widget, but instead each terminal gets its own widget. Therefore "the terminal widget is active" doesn't make sense in Theia
         // [TERMINAL_WIDGET_FACTORY_ID, 'workbench.panel.terminal'],
@@ -142,9 +140,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
             }
             if (factoryId === SEARCH_VIEW_CONTAINER_ID && widget instanceof ViewContainerWidget) {
                 waitUntil(this.prepareViewContainer('search', widget));
-            }
-            if (factoryId === TEST_VIEW_CONTAINER_ID && widget instanceof ViewContainerWidget) {
-                waitUntil(this.prepareViewContainer('test', widget));
             }
             if (factoryId === PLUGIN_VIEW_CONTAINER_FACTORY_ID && widget instanceof ViewContainerWidget) {
                 waitUntil(this.prepareViewContainer(this.toViewContainerId(widget.options), widget));
@@ -696,7 +691,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
         switch (description?.factoryId) {
             case EXPLORER_VIEW_CONTAINER_ID: return 'explorer';
             case SEARCH_VIEW_CONTAINER_ID: return 'search';
-            case TEST_VIEW_CONTAINER_ID: return 'test';
             case PLUGIN_VIEW_CONTAINER_FACTORY_ID: return this.toViewContainerId(description.options);
             default: return container.id;
         }
@@ -708,9 +702,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
         }
         if (viewContainerId === 'search') {
             return this.widgetManager.getWidget<ViewContainerWidget>(SEARCH_VIEW_CONTAINER_ID);
-        }
-        if (viewContainerId === 'test') {
-            return this.widgetManager.getWidget<ViewContainerWidget>(TEST_VIEW_CONTAINER_ID);
         }
         const identifier = this.toViewContainerIdentifier(viewContainerId);
         return this.widgetManager.getWidget<ViewContainerWidget>(PLUGIN_VIEW_CONTAINER_FACTORY_ID, identifier);
@@ -746,12 +737,6 @@ export class PluginViewRegistry implements FrontendApplicationContribution {
             const search = await this.widgetManager.getWidget(SEARCH_VIEW_CONTAINER_ID);
             if (search instanceof ViewContainerWidget) {
                 await this.prepareViewContainer('search', search);
-            }
-        })().catch(console.error));
-        promises.push((async () => {
-            const test = await this.widgetManager.getWidget(TEST_VIEW_CONTAINER_ID);
-            if (test instanceof ViewContainerWidget) {
-                await this.prepareViewContainer('test', test);
             }
         })().catch(console.error));
         await Promise.all(promises);
