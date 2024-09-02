@@ -181,9 +181,6 @@
       "path": "packages/variable-resolver"
     },
     {
-      "path": "packages/vsx-registry"
-    },
-    {
       "path": "packages/workspace"
     }
   ]

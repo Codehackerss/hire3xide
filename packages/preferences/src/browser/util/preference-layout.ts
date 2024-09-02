@@ -179,11 +179,6 @@ export const DEFAULT_LAYOUT: PreferenceLayout[] = [
                 settings: ['testing.*']
             },
             {
-                id: 'features.extensions',
-                label: nls.localizeByDefault('Extensions'),
-                settings: ['extensions.*']
-            },
-            {
                 id: 'features.terminal',
                 label: nls.localizeByDefault('Terminal'),
                 settings: ['terminal.*']
@@ -293,17 +288,6 @@ export const DEFAULT_LAYOUT: PreferenceLayout[] = [
             }
         ]
     },
-    {
-        id: 'extensions',
-        label: nls.localizeByDefault('Extensions'),
-        children: [
-            {
-                id: 'extensions.hosted-plugin',
-                label: nls.localize('theia/preferences/hostedPlugin', 'Hosted Plugin'),
-                settings: ['hosted-plugin.*']
-            }
-        ]
-    }
 ];
 
 @injectable()

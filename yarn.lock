@@ -1751,7 +1751,7 @@
   dependencies:
     "@theia/application-manager" "1.52.0"
     "@theia/application-package" "1.52.0"
-    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-2a381a10-a139-4e6e-8eae-4371d2f8caa4-1725271214483/node_modules/@theia/cli"
+    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-ee13d3a7-9287-47b4-a745-40d86ba4071e-1725277215231/node_modules/@theia/cli"
     "@theia/ffmpeg" "1.52.0"
     "@theia/localization-manager" "1.52.0"
     "@theia/ovsx-client" "1.52.0"
@@ -1834,6 +1834,24 @@
     p-debounce "^2.1.0"
     react-autosize-textarea "^7.0.0"
     ts-md5 "^1.2.2"
+    tslib "^2.6.2"
+
+"@theia/vsx-registry@1.52.0":
+  version "1.52.0"
+  resolved "https://registry.yarnpkg.com/@theia/vsx-registry/-/vsx-registry-1.52.0.tgz#ac4f6135fcaf77105b0409fb142de9748958f941"
+  integrity sha512-rQWKG2/C7UYD04dFO9OGx1tYmx2bgMirEKztPRAh1+iHO83kiZQLTWQ2im3TnjWZ9pIPmUxX+evntdZxTT/Hhw==
+  dependencies:
+    "@theia/core" "1.52.0"
+    "@theia/filesystem" "1.52.0"
+    "@theia/navigator" "1.52.0"
+    "@theia/ovsx-client" "1.52.0"
+    "@theia/plugin-ext" "1.52.0"
+    "@theia/plugin-ext-vscode" "1.52.0"
+    "@theia/preferences" "1.52.0"
+    "@theia/workspace" "1.52.0"
+    luxon "^2.4.0"
+    p-debounce "^2.1.0"
+    semver "^7.5.4"
     tslib "^2.6.2"
 
 "@tootallnate/once@1", "@tootallnate/once@^1.1.2":
@@ -2122,11 +2140,6 @@
   version "4.14.202"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.202.tgz#f09dbd2fb082d507178b2f2a5c7e74bd72ff98f8"
   integrity sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==
-
-"@types/luxon@^2.3.2":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-2.4.0.tgz#897d3abc23b68d78b69d76a12c21e01eb5adab95"
-  integrity sha512-oCavjEjRXuR6URJEtQm0eBdfsBiEcGBZbq21of8iGkeKxU1+1xgKuFPClaBZl2KB8ZZBSWlgk61tH6Mf+nvZVw==
 
 "@types/markdown-it-anchor@^4.0.1":
   version "4.0.4"
@@ -9588,12 +9601,12 @@ playwright@1.41.2:
 "plugin-a@file:sample-plugins/sample-namespace/plugin-a":
   version "1.52.0"
   dependencies:
-    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-9ad19b30-dfeb-44c8-b29f-c864de37078c-1725271214491/node_modules/plugin-a"
+    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-0798a93a-d407-4d7c-b2ce-513cb09e400a-1725277215234/node_modules/plugin-a"
 
 "plugin-b@file:sample-plugins/sample-namespace/plugin-b":
   version "1.52.0"
   dependencies:
-    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-f39f4455-efb0-409f-95c7-dcd104d41166-1725271214489/node_modules/plugin-b"
+    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-744d2ae1-8cc4-47c2-b11d-b20f213d5b12-1725277215234/node_modules/plugin-b"
 
 portfinder@^1.0.28:
   version "1.0.32"

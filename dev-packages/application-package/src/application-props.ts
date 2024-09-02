@@ -101,7 +101,7 @@ export namespace DefaultTheme {
         ) {
             return theme.dark;
         }
-        return theme.light;
+        return theme.dark;
     }
     export function defaultBackgroundColor(dark?: boolean): string {
         // The default light background color is based on the `colors#editor.background` value from

@@ -15,14 +15,14 @@
  ********************************************************************************/
 
 .theia-icon {
-  background-image: url("../icons/sidelogo.png");
+  background-image: url("../icons/whitelogo.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 #theia-main-content-panel {
-  background-image: url("../icons/logo1.svg.svg");
+  background-image: url("../icons/whitelogo.svg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 25%;
