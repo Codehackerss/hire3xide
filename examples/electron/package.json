@@ -47,7 +47,6 @@
     "@theia/mini-browser": "1.52.0",
     "@theia/monaco": "1.52.0",
     "@theia/navigator": "1.52.0",
-    "@theia/outline-view": "1.52.0",
     "@theia/output": "1.52.0",
     "@theia/plugin-dev": "1.52.0",
     "@theia/plugin-ext": "1.52.0",

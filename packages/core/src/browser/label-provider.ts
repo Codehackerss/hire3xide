@@ -38,7 +38,6 @@ export const LabelProviderContribution = Symbol('LabelProviderContribution');
  * A {@link LabelProviderContribution} determines how specific elements/nodes are displayed in the workbench.
  * Theia views use a common {@link LabelProvider} to determine the label and/or an icon for elements shown in the UI. This includes elements in lists
  * and trees, but also view specific locations like headers. The common {@link LabelProvider} collects all {@links LabelProviderContribution} and delegates
- * to the contribution with the highest priority. This is determined via calling the {@link LabelProviderContribution.canHandle} function, so contributions
  * define which elements they are responsible for.
  * As arbitrary views can consume LabelProviderContributions, they must be generic for the covered element type, not view specific. Label providers and
  * contributions can be used for arbitrary element and node types, e.g. for markers or domain-specific elements.

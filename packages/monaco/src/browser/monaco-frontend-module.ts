@@ -33,7 +33,6 @@ import { MonacoWorkspace } from './monaco-workspace';
 import { MonacoEditorService, MonacoEditorServiceFactory, VSCodeContextKeyService, VSCodeThemeService } from './monaco-editor-service';
 import { MonacoTextModelService, MonacoEditorModelFactory } from './monaco-text-model-service';
 import { MonacoContextMenuService } from './monaco-context-menu';
-import { MonacoOutlineContribution } from './monaco-outline-contribution';
 import { MonacoStatusBarContribution } from './monaco-status-bar-contribution';
 import { MonacoCommandService } from './monaco-command-service';
 import { MonacoCommandRegistry } from './monaco-command-registry';
@@ -41,8 +40,6 @@ import { MonacoDiffNavigatorFactory } from './monaco-diff-navigator-factory';
 import { MonacoFrontendApplicationContribution } from './monaco-frontend-application-contribution';
 import MonacoTextmateModuleBinder from './textmate/monaco-textmate-frontend-bindings';
 import { MonacoBulkEditService } from './monaco-bulk-edit-service';
-import { MonacoOutlineDecorator } from './monaco-outline-decorator';
-import { OutlineTreeDecorator } from '@theia/outline-view/lib/browser/outline-decorator-service';
 import { MonacoSnippetSuggestProvider } from './monaco-snippet-suggest-provider';
 import { ContextKeyService } from '@theia/core/lib/browser/context-key-service';
 import { MonacoContextKeyService } from './monaco-context-key-service';
@@ -126,9 +123,6 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
         (editor: TextEditor) => context.container.get(MonacoEditorProvider).getDiffNavigator(editor)
     );
 
-    bind(MonacoOutlineContribution).toSelf().inSingletonScope();
-    bind(FrontendApplicationContribution).toService(MonacoOutlineContribution);
-
     rebind(MarkdownRenderer).to(MonacoMarkdownRenderer).inSingletonScope();
 
     bind(MonacoFormattingConflictsContribution).toSelf().inSingletonScope();
@@ -162,9 +156,6 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(QuickAccessContribution).toService(GotoSymbolQuickAccessContribution);
 
     MonacoTextmateModuleBinder(bind, unbind, isBound, rebind);
-
-    bind(MonacoOutlineDecorator).toSelf().inSingletonScope();
-    bind(OutlineTreeDecorator).toService(MonacoOutlineDecorator);
 
     bind(MonacoMimeService).toSelf().inSingletonScope();
     rebind(MimeService).toService(MonacoMimeService);

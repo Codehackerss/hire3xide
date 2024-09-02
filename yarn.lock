@@ -1751,7 +1751,7 @@
   dependencies:
     "@theia/application-manager" "1.52.0"
     "@theia/application-package" "1.52.0"
-    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-ee13d3a7-9287-47b4-a745-40d86ba4071e-1725277215231/node_modules/@theia/cli"
+    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-ae58e936-e4d1-4236-843d-3c6c6eb4276d-1725282539154/node_modules/@theia/cli"
     "@theia/ffmpeg" "1.52.0"
     "@theia/localization-manager" "1.52.0"
     "@theia/ovsx-client" "1.52.0"
@@ -9601,12 +9601,12 @@ playwright@1.41.2:
 "plugin-a@file:sample-plugins/sample-namespace/plugin-a":
   version "1.52.0"
   dependencies:
-    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-0798a93a-d407-4d7c-b2ce-513cb09e400a-1725277215234/node_modules/plugin-a"
+    plugin-a "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-a-1.52.0-e9fe291e-dc04-4375-936b-6aef7bbf6a0d-1725282539162/node_modules/plugin-a"
 
 "plugin-b@file:sample-plugins/sample-namespace/plugin-b":
   version "1.52.0"
   dependencies:
-    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-744d2ae1-8cc4-47c2-b11d-b20f213d5b12-1725277215234/node_modules/plugin-b"
+    plugin-b "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-plugin-b-1.52.0-1e5216ff-ff1e-4116-905a-67d8e2f68061-1725282539163/node_modules/plugin-b"
 
 portfinder@^1.0.28:
   version "1.0.32"

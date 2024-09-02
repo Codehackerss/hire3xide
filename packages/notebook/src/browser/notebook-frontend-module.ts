@@ -40,7 +40,6 @@ import { NotebookEditorWidgetService } from './service/notebook-editor-widget-se
 import { NotebookRendererMessagingService } from './service/notebook-renderer-messaging-service';
 import { NotebookColorContribution } from './contributions/notebook-color-contribution';
 import { NotebookMonacoTextModelService } from './service/notebook-monaco-text-model-service';
-import { NotebookOutlineContribution } from './contributions/notebook-outline-contribution';
 import { NotebookLabelProviderContribution } from './contributions/notebook-label-provider-contribution';
 import { NotebookOutputActionContribution } from './contributions/notebook-output-action-contribution';
 import { NotebookClipboardService } from './service/notebook-clipboard-service';
@@ -103,8 +102,6 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
     bind(NotebookMonacoTextModelService).toSelf().inSingletonScope();
 
-    bind(NotebookOutlineContribution).toSelf().inSingletonScope();
-    bind(FrontendApplicationContribution).toService(NotebookOutlineContribution);
     bind(NotebookLabelProviderContribution).toSelf().inSingletonScope();
     bind(LabelProviderContribution).toService(NotebookLabelProviderContribution);
 
