@@ -1,5 +1,5 @@
-# Stage 1: Build Stage
-FROM ubuntu:22.04 AS build
+# Stage 1: Build Stage Only python
+FROM ubuntu:22.04 AS build 
 
 # Install necessary build tools and dependencies
 RUN apt-get update && apt-get install -y \
@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y \
 # Stage 2: Runtime Stage
 FROM ubuntu:22.04
 
-# Install only the necessary runtime dependencies
+# Install necessary runtime dependencies including Node.js and Yarn
 RUN apt-get update && apt-get install -y \
     python3 \
     git \
@@ -45,23 +45,20 @@ RUN apt-get update && apt-get install -y \
     bash \
     curl \
     gnupg && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Install Node.js and Yarn in the runtime stage
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
     curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarnkey.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
     apt-get install -y yarn && \
-    yarn -v
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user and group named "theia"
 RUN groupadd -r theia && useradd -r -g theia -s /bin/sh -m -d /home/theia theia
 
 # Ensure ownership and permissions for the theia user
-RUN mkdir -p /home/theia/.yarn && \
+RUN mkdir -p /home/theia && \
     chown -R theia:theia /home/theia && \
     chmod -R 755 /home/theia
 

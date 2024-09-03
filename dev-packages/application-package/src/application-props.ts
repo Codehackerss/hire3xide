@@ -143,7 +143,7 @@ export namespace FrontendApplicationConfig {
         /**
          * The name of the application.
          *
-         * Defaults to `Eclipse Theia`.
+         * Defaults to `Hire3x-IDE`.
          */
         readonly applicationName?: string;
 

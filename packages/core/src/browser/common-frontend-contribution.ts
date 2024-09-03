@@ -103,7 +103,6 @@ export namespace CommonCommands {
     export const VIEW_CATEGORY = 'View';
     export const CREATE_CATEGORY = 'Create';
     export const PREFERENCES_CATEGORY = 'Preferences';
-    export const MANAGE_CATEGORY = 'Manage';
     export const FILE_CATEGORY_KEY = nls.getDefaultKey(FILE_CATEGORY);
     export const VIEW_CATEGORY_KEY = nls.getDefaultKey(VIEW_CATEGORY);
     export const PREFERENCES_CATEGORY_KEY = nls.getDefaultKey(PREFERENCES_CATEGORY);
@@ -464,13 +463,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
         this.preferences.ready.then(() => this.setSashProperties());
         this.preferences.onPreferenceChanged(e => this.handlePreferenceChange(e, app));
 
-        app.shell.leftPanelHandler.addBottomMenu({
-            id: 'settings-menu',
-            iconClass: codicon('settings-gear'),
-            title: nls.localizeByDefault(CommonCommands.MANAGE_CATEGORY),
-            menuPath: MANAGE_MENU,
-            order: 0,
-        });
         const accountsMenu: SidebarMenu = {
             id: 'accounts-menu',
             iconClass: codicon('account'),

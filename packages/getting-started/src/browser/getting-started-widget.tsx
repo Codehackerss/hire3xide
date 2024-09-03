@@ -143,16 +143,16 @@ export class GettingStartedWidget extends ReactWidget {
                         {this.renderRecentWorkspaces()}
                     </div>
                 </div>
-                <div className='flex-grid'>
+                {/* <div className='flex-grid'>
                     <div className='col'>
                         {this.renderSettings()}
                     </div>
-                </div>
-                <div className='flex-grid'>
+                </div> */}
+                {/* <div className='flex-grid'>
                     <div className='col'>
                         {this.renderHelp()}
                     </div>
-                </div>
+                </div> */}
                 <div className='flex-grid'>
                     <div className='col'>
                         {this.renderVersion()}
@@ -283,80 +283,80 @@ export class GettingStartedWidget extends ReactWidget {
      * Render the settings section.
      * Generally used to display useful links.
      */
-    protected renderSettings(): React.ReactNode {
-        return <div className='gs-section'>
-            <h3 className='gs-section-header'>
-                <i className={codicon('settings-gear')}></i>
-                {nls.localizeByDefault('Settings')}
-            </h3>
-            <div className='gs-action-container'>
-                <a
-                    role={'button'}
-                    tabIndex={0}
-                    onClick={this.doOpenPreferences}
-                    onKeyDown={this.doOpenPreferencesEnter}>
-                    {nls.localizeByDefault('Open Settings')}
-                </a>
-            </div>
-            <div className='gs-action-container'>
-                <a
-                    role={'button'}
-                    tabIndex={0}
-                    onClick={this.doOpenKeyboardShortcuts}
-                    onKeyDown={this.doOpenKeyboardShortcutsEnter}>
-                    {nls.localizeByDefault('Open Keyboard Shortcuts')}
-                </a>
-            </div>
-        </div>;
-    }
+    // protected renderSettings(): React.ReactNode {
+    //     return <div className='gs-section'>
+    //         <h3 className='gs-section-header'>
+    //             <i className={codicon('settings-gear')}></i>
+    //             {nls.localizeByDefault('Settings')}
+    //         </h3>
+    //         <div className='gs-action-container'>
+    //             <a
+    //                 role={'button'}
+    //                 tabIndex={0}
+    //                 onClick={this.doOpenPreferences}
+    //                 onKeyDown={this.doOpenPreferencesEnter}>
+    //                 {nls.localizeByDefault('Open Settings')}
+    //             </a>
+    //         </div>
+    //         <div className='gs-action-container'>
+    //             <a
+    //                 role={'button'}
+    //                 tabIndex={0}
+    //                 onClick={this.doOpenKeyboardShortcuts}
+    //                 onKeyDown={this.doOpenKeyboardShortcutsEnter}>
+    //                 {nls.localizeByDefault('Open Keyboard Shortcuts')}
+    //             </a>
+    //         </div>
+    //     </div>;
+    // }
 
     /**
      * Render the help section.
      */
-    protected renderHelp(): React.ReactNode {
-        return <div className='gs-section'>
-            <h3 className='gs-section-header'>
-                <i className={codicon('question')}></i>
-                {nls.localizeByDefault('Help')}
-            </h3>
-            <div className='gs-action-container'>
-                <a
-                    role={'button'}
-                    tabIndex={0}
-                    onClick={() => this.doOpenExternalLink(this.documentationUrl)}
-                    onKeyDown={(e: React.KeyboardEvent) => this.doOpenExternalLinkEnter(e, this.documentationUrl)}>
-                    {nls.localizeByDefault('Documentation')}
-                </a>
-            </div>
-            <div className='gs-action-container'>
-                <a
-                    role={'button'}
-                    tabIndex={0}
-                    onClick={() => this.doOpenExternalLink(this.compatibilityUrl)}
-                    onKeyDown={(e: React.KeyboardEvent) => this.doOpenExternalLinkEnter(e, this.compatibilityUrl)}>
-                    {nls.localize('theia/getting-started/apiComparator', '{0} API Compatibility', 'VS Code')}
-                </a>
-            </div>
-            <div className='gs-action-container'>
-                <a
-                    role={'button'}
-                    tabIndex={0}
-                    onClick={() => this.doOpenExternalLink(this.extensionUrl)}
-                    onKeyDown={(e: React.KeyboardEvent) => this.doOpenExternalLinkEnter(e, this.extensionUrl)}>
-                    {nls.localize('theia/getting-started/newExtension', 'Building a New Extension')}
-                </a>
-            </div>
-            <div className='gs-action-container'>
-                <a
-                    role={'button'}
-                    tabIndex={0}
-                    onClick={() => this.doOpenExternalLink(this.pluginUrl)}
-                    onKeyDown={(e: React.KeyboardEvent) => this.doOpenExternalLinkEnter(e, this.pluginUrl)}>
-                    {nls.localize('theia/getting-started/newPlugin', 'Building a New Plugin')}
-                </a>
-            </div>
-        </div>;
-    }
+    // protected renderHelp(): React.ReactNode {
+    //     return <div className='gs-section'>
+    //         <h3 className='gs-section-header'>
+    //             <i className={codicon('question')}></i>
+    //             {nls.localizeByDefault('Help')}
+    //         </h3>
+    //         <div className='gs-action-container'>
+    //             <a
+    //                 role={'button'}
+    //                 tabIndex={0}
+    //                 onClick={() => this.doOpenExternalLink(this.documentationUrl)}
+    //                 onKeyDown={(e: React.KeyboardEvent) => this.doOpenExternalLinkEnter(e, this.documentationUrl)}>
+    //                 {nls.localizeByDefault('Documentation')}
+    //             </a>
+    //         </div>
+    //         <div className='gs-action-container'>
+    //             <a
+    //                 role={'button'}
+    //                 tabIndex={0}
+    //                 onClick={() => this.doOpenExternalLink(this.compatibilityUrl)}
+    //                 onKeyDown={(e: React.KeyboardEvent) => this.doOpenExternalLinkEnter(e, this.compatibilityUrl)}>
+    //                 {nls.localize('theia/getting-started/apiComparator', '{0} API Compatibility', 'VS Code')}
+    //             </a>
+    //         </div>
+    //         <div className='gs-action-container'>
+    //             <a
+    //                 role={'button'}
+    //                 tabIndex={0}
+    //                 onClick={() => this.doOpenExternalLink(this.extensionUrl)}
+    //                 onKeyDown={(e: React.KeyboardEvent) => this.doOpenExternalLinkEnter(e, this.extensionUrl)}>
+    //                 {nls.localize('theia/getting-started/newExtension', 'Building a New Extension')}
+    //             </a>
+    //         </div>
+    //         <div className='gs-action-container'>
+    //             <a
+    //                 role={'button'}
+    //                 tabIndex={0}
+    //                 onClick={() => this.doOpenExternalLink(this.pluginUrl)}
+    //                 onKeyDown={(e: React.KeyboardEvent) => this.doOpenExternalLinkEnter(e, this.pluginUrl)}>
+    //                 {nls.localize('theia/getting-started/newPlugin', 'Building a New Plugin')}
+    //             </a>
+    //         </div>
+    //     </div>;
+    // }
 
     /**
      * Render the version section.
