@@ -6,7 +6,7 @@
   "theia": {
     "frontend": {
       "config": {
-        "applicationName": "Theia Browser Example",
+        "applicationName": "Hire3x Editor",
         "preferences": {
           "files.enableTrash": false
         },
@@ -20,8 +20,6 @@
     }
   },
   "dependencies": {
-    "@theia/api-provider-sample": "1.52.0",
-    "@theia/api-samples": "1.52.0",
     "@theia/bulk-edit": "1.52.0",
     "@theia/callhierarchy": "1.52.0",
     "@theia/console": "1.52.0",
@@ -29,6 +27,7 @@
     "@theia/dev-container": "1.52.0",
     "@theia/editor": "1.52.0",
     "@theia/editor-preview": "1.52.0",
+    "@theia/example-browser": "file:",
     "@theia/file-search": "1.52.0",
     "@theia/filesystem": "1.52.0",
     "@theia/getting-started": "1.52.0",

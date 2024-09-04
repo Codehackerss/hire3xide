@@ -206,6 +206,22 @@ blockquote {
   height: 22px;
   margin: 5px;
   margin-left: 15px;
+  background-image: url("../icons/whitelogo.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#theia-main-content-panel {
+  background-image: url("../icons/whitelogo.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 25%;
+}
+
+.unclosable-window-icon {
+  -webkit-mask: url("window-icon.svg");
+  mask: url("window-icon.svg");
 }
 
 .theia-mod-disabled,

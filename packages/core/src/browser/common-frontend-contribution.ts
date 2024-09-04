@@ -28,7 +28,7 @@ import { SelectionService } from '../common/selection-service';
 import { MessageService } from '../common/message-service';
 import { OpenerService, open } from '../browser/opener-service';
 import { ApplicationShell } from './shell/application-shell';
-import { SHELL_TABBAR_CONTEXT_CLOSE, SHELL_TABBAR_CONTEXT_COPY, SHELL_TABBAR_CONTEXT_PIN, SHELL_TABBAR_CONTEXT_SPLIT } from './shell/tab-bars';
+import { SHELL_TABBAR_CONTEXT_CLOSE, SHELL_TABBAR_CONTEXT_COPY } from './shell/tab-bars';
 import { AboutDialog } from './about-dialog';
 import * as browser from './browser';
 import URI from '../common/uri';
@@ -221,11 +221,6 @@ export namespace CommonCommands {
         category: VIEW_CATEGORY,
         label: 'Close All Tabs in Main Area'
     }, 'theia/core/common/closeAllTabMain', VIEW_CATEGORY_KEY);
-    export const COLLAPSE_PANEL = Command.toLocalizedCommand({
-        id: 'core.collapse.tab',
-        category: VIEW_CATEGORY,
-        label: 'Collapse Side Panel'
-    }, 'theia/core/common/collapseTab', VIEW_CATEGORY_KEY);
     export const COLLAPSE_ALL_PANELS = Command.toLocalizedCommand({
         id: 'core.collapse.all.tabs',
         category: VIEW_CATEGORY,
@@ -630,56 +625,15 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             commandId: CommonCommands.COPY_PATH.id,
             order: '3'
         });
-
-        registry.registerMenuAction(SHELL_TABBAR_CONTEXT_CLOSE, {
-            commandId: CommonCommands.CLOSE_TAB.id,
-            label: nls.localizeByDefault('Close'),
-            order: '0'
-        });
-        registry.registerMenuAction(SHELL_TABBAR_CONTEXT_CLOSE, {
-            commandId: CommonCommands.CLOSE_OTHER_TABS.id,
-            label: nls.localizeByDefault('Close Others'),
-            order: '1'
-        });
         registry.registerMenuAction(SHELL_TABBAR_CONTEXT_CLOSE, {
             commandId: CommonCommands.CLOSE_RIGHT_TABS.id,
             label: nls.localizeByDefault('Close to the Right'),
             order: '2'
         });
-        registry.registerMenuAction(SHELL_TABBAR_CONTEXT_CLOSE, {
-            commandId: CommonCommands.CLOSE_SAVED_TABS.id,
-            label: nls.localizeByDefault('Close Saved'),
-            order: '3',
-        });
-        registry.registerMenuAction(SHELL_TABBAR_CONTEXT_CLOSE, {
-            commandId: CommonCommands.CLOSE_ALL_TABS.id,
-            label: nls.localizeByDefault('Close All'),
-            order: '4'
-        });
-        registry.registerMenuAction(SHELL_TABBAR_CONTEXT_SPLIT, {
-            commandId: CommonCommands.COLLAPSE_PANEL.id,
-            label: CommonCommands.COLLAPSE_PANEL.label,
-            order: '5'
-        });
-        registry.registerMenuAction(SHELL_TABBAR_CONTEXT_SPLIT, {
-            commandId: CommonCommands.TOGGLE_MAXIMIZED.id,
-            label: CommonCommands.TOGGLE_MAXIMIZED.label,
-            order: '6'
-        });
         registry.registerMenuAction(SHELL_TABBAR_CONTEXT_COPY, {
             commandId: CommonCommands.COPY_PATH.id,
             label: CommonCommands.COPY_PATH.label,
             order: '1',
-        });
-        registry.registerMenuAction(SHELL_TABBAR_CONTEXT_PIN, {
-            commandId: CommonCommands.PIN_TAB.id,
-            label: nls.localizeByDefault('Pin'),
-            order: '7'
-        });
-        registry.registerMenuAction(SHELL_TABBAR_CONTEXT_PIN, {
-            commandId: CommonCommands.UNPIN_TAB.id,
-            label: nls.localizeByDefault('Unpin'),
-            order: '8'
         });
 
         registry.registerMenuAction(CommonMenus.FILE_SETTINGS_SUBMENU_THEME, {
@@ -863,11 +817,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             isEnabled: () => this.shell.mainAreaTabBars.some(tb => tb.titles.some(title => title.closable)),
             execute: () => this.shell.closeTabs('main', title => title.closable)
         });
-        commandRegistry.registerCommand(CommonCommands.COLLAPSE_PANEL, new CurrentWidgetCommandAdapter(this.shell, {
-            isEnabled: (_title, tabbar) => Boolean(tabbar && ApplicationShell.isSideArea(this.shell.getAreaFor(tabbar))),
-            isVisible: (_title, tabbar) => Boolean(tabbar && ApplicationShell.isSideArea(this.shell.getAreaFor(tabbar))),
-            execute: (_title, tabbar) => tabbar && this.shell.collapsePanel(this.shell.getAreaFor(tabbar)!)
-        }));
         commandRegistry.registerCommand(CommonCommands.COLLAPSE_ALL_PANELS, {
             execute: () => {
                 this.shell.collapsePanel('left');
@@ -1072,10 +1021,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
                 keybinding: this.isElectron() ? 'ctrlCmd+k ctrlCmd+w' : 'alt+shift+w'
             },
             // Panels
-            {
-                command: CommonCommands.COLLAPSE_PANEL.id,
-                keybinding: 'alt+c'
-            },
             {
                 command: CommonCommands.TOGGLE_BOTTOM_PANEL.id,
                 keybinding: 'ctrlcmd+j',

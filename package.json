@@ -96,8 +96,7 @@
   "workspaces": [
     "dev-packages/*",
     "examples/*",
-    "packages/*",
-    "sample-plugins/*/*"
+    "packages/*"
   ],
   "theiaPluginsDir": "plugins",
   "theiaPlugins": {
