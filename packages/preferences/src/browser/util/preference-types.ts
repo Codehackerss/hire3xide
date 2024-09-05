@@ -21,7 +21,6 @@ import {
     ExpandableTreeNode,
     SelectableTreeNode,
     PreferenceInspection,
-    CommonCommands,
 } from '@theia/core/lib/browser';
 import { Command, MenuPath } from '@theia/core';
 import { JSONValue } from '@theia/core/shared/@phosphor/coreutils';
@@ -131,41 +130,6 @@ export namespace PreferencesCommands {
         label: 'Copy Setting as JSON',
     });
 
-    export const OPEN_USER_PREFERENCES = Command.toDefaultLocalizedCommand({
-        id: 'workbench.action.openGlobalSettings',
-        category: CommonCommands.PREFERENCES_CATEGORY,
-        label: 'Open User Settings',
-    });
-
-    export const OPEN_WORKSPACE_PREFERENCES = Command.toDefaultLocalizedCommand({
-        id: 'workbench.action.openWorkspaceSettings',
-        category: CommonCommands.PREFERENCES_CATEGORY,
-        label: 'Open Workspace Settings',
-    });
-
-    export const OPEN_FOLDER_PREFERENCES = Command.toDefaultLocalizedCommand({
-        id: 'workbench.action.openFolderSettings',
-        category: CommonCommands.PREFERENCES_CATEGORY,
-        label: 'Open Folder Settings'
-    });
-
-    export const OPEN_USER_PREFERENCES_JSON = Command.toDefaultLocalizedCommand({
-        id: 'workbench.action.openSettingsJson',
-        category: CommonCommands.PREFERENCES_CATEGORY,
-        label: 'Open Settings (JSON)'
-    });
-
-    export const OPEN_WORKSPACE_PREFERENCES_JSON = Command.toDefaultLocalizedCommand({
-        id: 'workbench.action.openWorkspaceSettingsFile',
-        category: CommonCommands.PREFERENCES_CATEGORY,
-        label: 'Open Workspace Settings (JSON)',
-    });
-
-    export const OPEN_FOLDER_PREFERENCES_JSON = Command.toDefaultLocalizedCommand({
-        id: 'workbench.action.openFolderSettingsFile',
-        category: CommonCommands.PREFERENCES_CATEGORY,
-        label: 'Open Folder Settings (JSON)',
-    });
 }
 
 export namespace PreferenceMenus {

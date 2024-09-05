@@ -15,22 +15,17 @@
 // *****************************************************************************
 
 import { injectable, inject, named, optional } from '@theia/core/shared/inversify';
-import { MenuModelRegistry, CommandRegistry, nls } from '@theia/core';
+import { MenuModelRegistry, CommandRegistry } from '@theia/core';
 import {
-    CommonMenus,
     AbstractViewContribution,
-    CommonCommands,
-    KeybindingRegistry,
     Widget,
     PreferenceScope,
     PreferenceProvider,
     PreferenceService,
     QuickInputService,
     QuickPickItem,
-    isFirefox,
     PreferenceSchemaProvider,
 } from '@theia/core/lib/browser';
-import { isOSX } from '@theia/core/lib/common/os';
 import { TabBarToolbarRegistry } from '@theia/core/lib/browser/shell/tab-bar-toolbar';
 import { EditorManager, EditorWidget } from '@theia/editor/lib/browser';
 import URI from '@theia/core/lib/common/uri';
@@ -66,14 +61,6 @@ export class PreferencesContribution extends AbstractViewContribution<Preference
     }
 
     override registerCommands(commands: CommandRegistry): void {
-        commands.registerCommand(CommonCommands.OPEN_PREFERENCES, {
-            execute: async (query?: string) => {
-                const widget = await this.openView({ activate: true });
-                if (typeof query === 'string') {
-                    widget.setSearchTerm(query);
-                }
-            },
-        });
         commands.registerCommand(PreferencesCommands.OPEN_PREFERENCES_JSON_TOOLBAR, {
             isEnabled: () => true,
             isVisible: w => this.withWidget(w, () => true),
@@ -103,54 +90,9 @@ export class PreferencesContribution extends AbstractViewContribution<Preference
                 this.preferenceService.set(id, undefined, Number(this.scopeTracker.currentScope.scope), this.scopeTracker.currentScope.uri);
             }
         });
-        commands.registerCommand(PreferencesCommands.OPEN_USER_PREFERENCES, {
-            execute: async () => {
-                const widget = await this.openView({ activate: true });
-                widget.setScope(PreferenceScope.User);
-            }
-        });
-        commands.registerCommand(PreferencesCommands.OPEN_WORKSPACE_PREFERENCES, {
-            isEnabled: () => !!this.workspaceService.workspace,
-            isVisible: () => !!this.workspaceService.workspace,
-            execute: async () => {
-                const widget = await this.openView({ activate: true });
-                widget.setScope(PreferenceScope.Workspace);
-            }
-        });
-        commands.registerCommand(PreferencesCommands.OPEN_FOLDER_PREFERENCES, {
-            isEnabled: () => !!this.workspaceService.isMultiRootWorkspaceOpened && this.workspaceService.tryGetRoots().length > 0,
-            isVisible: () => !!this.workspaceService.isMultiRootWorkspaceOpened && this.workspaceService.tryGetRoots().length > 0,
-            execute: () => this.openFolderPreferences(root => {
-                this.openView({ activate: true });
-                this.scopeTracker.setScope(root.resource);
-            })
-        });
-        commands.registerCommand(PreferencesCommands.OPEN_USER_PREFERENCES_JSON, {
-            execute: async () => this.openJson(PreferenceScope.User)
-        });
-        commands.registerCommand(PreferencesCommands.OPEN_WORKSPACE_PREFERENCES_JSON, {
-            isEnabled: () => !!this.workspaceService.workspace,
-            isVisible: () => !!this.workspaceService.workspace,
-            execute: async () => this.openJson(PreferenceScope.Workspace)
-        });
-        commands.registerCommand(PreferencesCommands.OPEN_FOLDER_PREFERENCES_JSON, {
-            isEnabled: () => !!this.workspaceService.isMultiRootWorkspaceOpened && this.workspaceService.tryGetRoots().length > 0,
-            isVisible: () => !!this.workspaceService.isMultiRootWorkspaceOpened && this.workspaceService.tryGetRoots().length > 0,
-            execute: () => this.openFolderPreferences(root => this.openJson(PreferenceScope.Folder, root.resource.toString()))
-        });
     }
 
     override registerMenus(menus: MenuModelRegistry): void {
-        menus.registerMenuAction(CommonMenus.FILE_SETTINGS_SUBMENU_OPEN, {
-            commandId: CommonCommands.OPEN_PREFERENCES.id,
-            label: nls.localizeByDefault('Settings'),
-            order: 'a10',
-        });
-        menus.registerMenuAction(CommonMenus.MANAGE_SETTINGS, {
-            commandId: CommonCommands.OPEN_PREFERENCES.id,
-            label: nls.localizeByDefault('Settings'),
-            order: 'a10',
-        });
         menus.registerMenuAction(PreferenceMenus.PREFERENCE_EDITOR_CONTEXT_MENU, {
             commandId: PreferencesCommands.RESET_PREFERENCE.id,
             label: PreferencesCommands.RESET_PREFERENCE.label,
@@ -168,18 +110,10 @@ export class PreferencesContribution extends AbstractViewContribution<Preference
         });
     }
 
-    override registerKeybindings(keybindings: KeybindingRegistry): void {
-        keybindings.registerKeybinding({
-            command: CommonCommands.OPEN_PREFERENCES.id,
-            keybinding: (isOSX && !isFirefox) ? 'cmd+,' : 'ctrl+,'
-        });
-    }
-
     registerToolbarItems(toolbar: TabBarToolbarRegistry): void {
         toolbar.registerItem({
             id: PreferencesCommands.OPEN_PREFERENCES_JSON_TOOLBAR.id,
             command: PreferencesCommands.OPEN_PREFERENCES_JSON_TOOLBAR.id,
-            tooltip: PreferencesCommands.OPEN_USER_PREFERENCES_JSON.label,
             priority: 0,
         });
     }

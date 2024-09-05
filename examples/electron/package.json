@@ -39,7 +39,6 @@
     "@theia/file-search": "1.52.0",
     "@theia/filesystem": "1.52.0",
     "@theia/getting-started": "1.52.0",
-    "@theia/keymaps": "1.52.0",
     "@theia/markers": "1.52.0",
     "@theia/messages": "1.52.0",
     "@theia/metrics": "1.52.0",

@@ -1751,7 +1751,7 @@
   dependencies:
     "@theia/application-manager" "1.52.0"
     "@theia/application-package" "1.52.0"
-    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-c28a6bb4-3101-4a49-92d8-11a8875e01d4-1725447605193/node_modules/@theia/cli"
+    "@theia/cli" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-cli-1.52.0-07050ac8-0064-42ff-a180-294b07273bb5-1725515354439/node_modules/@theia/cli"
     "@theia/ffmpeg" "1.52.0"
     "@theia/localization-manager" "1.52.0"
     "@theia/ovsx-client" "1.52.0"
@@ -1785,7 +1785,7 @@
     "@theia/core" "1.52.0"
     "@theia/editor" "1.52.0"
     "@theia/editor-preview" "1.52.0"
-    "@theia/example-browser-only" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-example-browser-only-1.52.0-41c81bb2-2f2b-4575-8d4a-f419316c326b-1725447605185/node_modules/@theia/example-browser-only"
+    "@theia/example-browser-only" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-example-browser-only-1.52.0-38e815de-b3b5-4d64-ba91-307cfe42bab3-1725515354428/node_modules/@theia/example-browser-only"
     "@theia/file-search" "1.52.0"
     "@theia/filesystem" "1.52.0"
     "@theia/getting-started" "1.52.0"
@@ -1828,7 +1828,7 @@
     "@theia/dev-container" "1.52.0"
     "@theia/editor" "1.52.0"
     "@theia/editor-preview" "1.52.0"
-    "@theia/example-browser" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-example-browser-1.52.0-2dcea08c-8098-4f13-9d15-a1163b0ddfbb-1725447605189/node_modules/@theia/example-browser"
+    "@theia/example-browser" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-example-browser-1.52.0-da05f612-33c0-4668-b3a2-6b77b9bf3e9b-1725515354435/node_modules/@theia/example-browser"
     "@theia/file-search" "1.52.0"
     "@theia/filesystem" "1.52.0"
     "@theia/getting-started" "1.52.0"
@@ -1874,7 +1874,7 @@
     "@theia/editor" "1.52.0"
     "@theia/editor-preview" "1.52.0"
     "@theia/electron" "1.52.0"
-    "@theia/example-electron" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-example-electron-1.52.0-55ec7790-9280-4ddd-86f7-af22568402fb-1725447605187/node_modules/@theia/example-electron"
+    "@theia/example-electron" "file:C:/Users/Demo/AppData/Local/Yarn/Cache/v6/npm-@theia-example-electron-1.52.0-c3669be0-ce00-4a3e-8ec6-a8730167da3b-1725515354431/node_modules/@theia/example-electron"
     "@theia/external-terminal" "1.52.0"
     "@theia/file-search" "1.52.0"
     "@theia/filesystem" "1.52.0"
@@ -1932,6 +1932,19 @@
     octicons "^7.1.0"
     p-queue "^2.4.2"
     ts-md5 "^1.2.2"
+    tslib "^2.6.2"
+
+"@theia/keymaps@1.52.0":
+  version "1.52.0"
+  resolved "https://registry.yarnpkg.com/@theia/keymaps/-/keymaps-1.52.0.tgz#391f1b0c7097e3672b122110dbf0813bf0448141"
+  integrity sha512-bzDl1N8dBwPSbYdGtblbjlwjePfwYvs+s5zoIbLg4/cBzxLB7LWY5JfoFAA4gD85XP/Gg0iC/JKtJEV+CIyumw==
+  dependencies:
+    "@theia/core" "1.52.0"
+    "@theia/monaco" "1.52.0"
+    "@theia/monaco-editor-core" "1.83.101"
+    "@theia/preferences" "1.52.0"
+    "@theia/userstorage" "1.52.0"
+    jsonc-parser "^2.2.0"
     tslib "^2.6.2"
 
 "@theia/monaco-editor-core@1.83.101":

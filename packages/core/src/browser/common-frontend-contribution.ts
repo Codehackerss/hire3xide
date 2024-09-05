@@ -102,10 +102,8 @@ export namespace CommonCommands {
     export const FILE_CATEGORY = 'File';
     export const VIEW_CATEGORY = 'View';
     export const CREATE_CATEGORY = 'Create';
-    export const PREFERENCES_CATEGORY = 'Preferences';
     export const FILE_CATEGORY_KEY = nls.getDefaultKey(FILE_CATEGORY);
     export const VIEW_CATEGORY_KEY = nls.getDefaultKey(VIEW_CATEGORY);
-    export const PREFERENCES_CATEGORY_KEY = nls.getDefaultKey(PREFERENCES_CATEGORY);
 
     export const OPEN: Command = {
         id: 'core.open',
@@ -310,23 +308,6 @@ export namespace CommonCommands {
     export const ABOUT_COMMAND = Command.toDefaultLocalizedCommand({
         id: 'core.about',
         label: 'About'
-    });
-
-    export const OPEN_PREFERENCES = Command.toDefaultLocalizedCommand({
-        id: 'preferences:open',
-        category: PREFERENCES_CATEGORY,
-        label: 'Open Settings (UI)',
-    });
-
-    export const SELECT_COLOR_THEME = Command.toDefaultLocalizedCommand({
-        id: 'workbench.action.selectTheme',
-        label: 'Color Theme',
-        category: PREFERENCES_CATEGORY
-    });
-    export const SELECT_ICON_THEME = Command.toDefaultLocalizedCommand({
-        id: 'workbench.action.selectIconTheme',
-        label: 'File Icon Theme',
-        category: PREFERENCES_CATEGORY
     });
 
     export const CONFIGURE_DISPLAY_LANGUAGE = Command.toDefaultLocalizedCommand({
@@ -589,8 +570,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             commandId: CommonCommands.AUTO_SAVE.id
         });
 
-        registry.registerSubmenu(CommonMenus.FILE_SETTINGS_SUBMENU, nls.localizeByDefault(CommonCommands.PREFERENCES_CATEGORY));
-
         registry.registerMenuAction(CommonMenus.EDIT_UNDO, {
             commandId: CommonCommands.UNDO.id,
             order: '0'
@@ -634,23 +613,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             commandId: CommonCommands.COPY_PATH.id,
             label: CommonCommands.COPY_PATH.label,
             order: '1',
-        });
-
-        registry.registerMenuAction(CommonMenus.FILE_SETTINGS_SUBMENU_THEME, {
-            commandId: CommonCommands.SELECT_COLOR_THEME.id
-        });
-        registry.registerMenuAction(CommonMenus.FILE_SETTINGS_SUBMENU_THEME, {
-            commandId: CommonCommands.SELECT_ICON_THEME.id
-        });
-
-        registry.registerSubmenu(CommonMenus.MANAGE_SETTINGS_THEMES, nls.localizeByDefault('Themes'), { order: 'a50' });
-        registry.registerMenuAction(CommonMenus.MANAGE_SETTINGS_THEMES, {
-            commandId: CommonCommands.SELECT_COLOR_THEME.id,
-            order: '0'
-        });
-        registry.registerMenuAction(CommonMenus.MANAGE_SETTINGS_THEMES, {
-            commandId: CommonCommands.SELECT_ICON_THEME.id,
-            order: '1'
         });
 
         registry.registerMenuAction(CommonMenus.FILE_NEW_TEXT, {
@@ -885,12 +847,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
             execute: () => this.quickInputService?.open(QuickViewService.PREFIX)
         });
 
-        commandRegistry.registerCommand(CommonCommands.SELECT_COLOR_THEME, {
-            execute: () => this.selectColorTheme()
-        });
-        commandRegistry.registerCommand(CommonCommands.SELECT_ICON_THEME, {
-            execute: () => this.selectIconTheme()
-        });
         commandRegistry.registerCommand(CommonCommands.PIN_TAB, new CurrentWidgetCommandAdapter(this.shell, {
             isEnabled: title => Boolean(title && !isPinned(title)),
             execute: title => this.togglePinned(title),
@@ -1047,10 +1003,6 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
                 keybinding: 'ctrlcmd+alt+s'
             },
             // Theming
-            {
-                command: CommonCommands.SELECT_COLOR_THEME.id,
-                keybinding: 'ctrlcmd+k ctrlcmd+t'
-            },
             {
                 command: CommonCommands.PIN_TAB.id,
                 keybinding: 'ctrlcmd+k shift+enter',

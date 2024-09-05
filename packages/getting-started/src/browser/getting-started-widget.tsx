@@ -19,7 +19,6 @@ import URI from '@theia/core/lib/common/uri';
 import { injectable, inject, postConstruct } from '@theia/core/shared/inversify';
 import { CommandRegistry, isOSX, environment, Path } from '@theia/core/lib/common';
 import { WorkspaceCommands, WorkspaceService } from '@theia/workspace/lib/browser';
-import { KeymapsCommands } from '@theia/keymaps/lib/browser';
 import { Message, ReactWidget, CommonCommands, LabelProvider, Key, KeyCode, codicon, PreferenceService } from '@theia/core/lib/browser';
 import { ApplicationInfo, ApplicationServer } from '@theia/core/lib/common/application-protocol';
 import { FrontendApplicationConfigProvider } from '@theia/core/lib/browser/frontend-application-config-provider';
@@ -448,23 +447,11 @@ export class GettingStartedWidget extends ReactWidget {
      * Trigger the open preferences command.
      * Used to open the preferences widget.
      */
-    protected doOpenPreferences = () => this.commandRegistry.executeCommand(CommonCommands.OPEN_PREFERENCES.id);
-    protected doOpenPreferencesEnter = (e: React.KeyboardEvent) => {
-        if (this.isEnterKey(e)) {
-            this.doOpenPreferences();
-        }
-    };
 
     /**
      * Trigger the open keyboard shortcuts command.
      * Used to open the keyboard shortcuts widget.
      */
-    protected doOpenKeyboardShortcuts = () => this.commandRegistry.executeCommand(KeymapsCommands.OPEN_KEYMAPS.id);
-    protected doOpenKeyboardShortcutsEnter = (e: React.KeyboardEvent) => {
-        if (this.isEnterKey(e)) {
-            this.doOpenKeyboardShortcuts();
-        }
-    };
 
     /**
      * Open a workspace given its uri.
