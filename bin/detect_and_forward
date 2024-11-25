@@ -1,0 +1,78 @@
+#!/bin/sh
+
+detect_and_forward() {
+  TERMINAL_TTY=$(ps -o tty= -p $$ | tr -d ' ' | sed 's/.*\///')
+
+  if [ "$TERMINAL_TTY" = "not a tty" ] || [ -z "$TERMINAL_TTY" ]; then
+    sleep 0.5
+    detect_and_forward
+    return
+  fi
+
+  LISTENED_PORTS=$(netstat -tulpn 2>/dev/null | grep LISTEN | awk '{print $4}' | sed 's/.*://')
+  FORWARD_FILE="/home/theia/port_forwarded.txt"
+
+  is_process_in_terminal() {
+    local pid=$1
+    process_tty=$(ps -o tty= -p $pid | tr -d ' ' | sed 's/.*\///')
+
+    [ "$process_tty" = "$TERMINAL_TTY" ]
+  }
+
+  check_existing_tunnel() {
+    local port=$1
+    curl -s http://127.0.0.1:4040/api/tunnels | grep -q "\"name\":\"$port\""
+    return $?
+  }
+
+  forward_port() {
+    local port=$1
+
+    if ! check_existing_tunnel $port; then
+      PUBLIC_URL=$(curl -s -d '{"addr": "'$port'", "proto": "http", "name": "'$port'"}' \
+        -H 'Content-Type: application/json' -X POST http://127.0.0.1:4040/api/tunnels \
+        | grep -o '"public_url":"[^"]*"' | sed 's/"public_url":"\(.*\)"/\1/' | grep https)
+
+      if [ -n "$PUBLIC_URL" ]; then
+        echo "$port:$PUBLIC_URL" >> "$FORWARD_FILE"
+        echo "$PUBLIC_URL"
+      fi
+    fi
+  }
+
+  update_listened_ports() {
+    local current_ports=$1
+    local updated_ports=""
+
+    for port in $current_ports; do
+      if echo "$LISTENED_PORTS" | grep -q "$port"; then
+        updated_ports="$updated_ports $port"
+      fi
+    done
+
+    echo "$updated_ports"
+  }
+
+  check_new_ports() {
+    CURRENT_PORTS=$(netstat -tulpn 2>/dev/null | grep LISTEN | awk '{print $4}' | sed 's/.*://')
+
+    for port in $CURRENT_PORTS; do
+      if [ "$port" -ne 4040 ] && ! echo "$LISTENED_PORTS" | grep -q "$port"; then
+        PID=$(netstat -tulpn 2>/dev/null | grep ":$port " | awk '{print $7}' | cut -d'/' -f1)
+
+        if is_process_in_terminal $PID; then
+          forward_port $port
+        fi
+      fi
+    done
+
+    LISTENED_PORTS=$(update_listened_ports "$CURRENT_PORTS")
+  }
+
+  while true; do
+    check_new_ports
+    sleep 0.5
+  done
+}
+
+detect_and_forward
