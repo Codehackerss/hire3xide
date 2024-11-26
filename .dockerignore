@@ -1,4 +1,6 @@
 .DS_Store
+.vscode
+.theia
 node_modules
 build
 lib
