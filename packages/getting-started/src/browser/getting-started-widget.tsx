@@ -486,7 +486,7 @@ export interface PreferencesProps {
 
 function WelcomePreferences(props: PreferencesProps): JSX.Element {
     const [startupEditor, setStartupEditor] = React.useState<string>(
-        props.preferenceService.get('workbench.startupEditor', 'welcomePage')
+        props.preferenceService.get('workbench.startupEditor', 'readme')
     );
     React.useEffect(() => {
         const prefListener = props.preferenceService.onPreferenceChanged(change => {
@@ -498,7 +498,7 @@ function WelcomePreferences(props: PreferencesProps): JSX.Element {
         return () => prefListener.dispose();
     }, [props.preferenceService]);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.checked ? 'welcomePage' : 'none';
+        const newValue = e.target.checked ? 'readme' : 'none';
         props.preferenceService.updateValue('workbench.startupEditor', newValue);
     };
     return (
@@ -508,7 +508,7 @@ function WelcomePreferences(props: PreferencesProps): JSX.Element {
                 className="theia-input"
                 id="startupEditor"
                 onChange={handleChange}
-                checked={startupEditor === 'welcomePage' || startupEditor === 'welcomePageInEmptyWorkbench'}
+                checked={startupEditor === 'readme' || startupEditor === 'welcomepage'}
             />
             <label htmlFor="startupEditor">
                 {nls.localizeByDefault('Show welcome page on startup')}

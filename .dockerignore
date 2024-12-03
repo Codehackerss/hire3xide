@@ -1,6 +1,4 @@
 .DS_Store
-.vscode
-.theia
 node_modules
 build
 lib
@@ -26,7 +24,6 @@ package-backup.json
 packages/plugin/typedoc
 plugins
 gh-pages
-.vscode/ipch
 dev-packages/electron/compile_commands.json
 *.tsbuildinfo
 .eslintcache

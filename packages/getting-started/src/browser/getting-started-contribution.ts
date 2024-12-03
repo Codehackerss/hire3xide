@@ -71,9 +71,15 @@ export class GettingStartedContribution extends AbstractViewContribution<Getting
             if (this.editorManager.all.length === 0) {
                 await this.preferenceService.ready;
                 const startupEditor = this.preferenceService.get('workbench.startupEditor');
+                console.log('starttuppp thing', startupEditor);
                 switch (startupEditor) {
+                    case 'readme':
+                        await this.openReadme();
+                        // Need to change readme
+                        break;
                     case 'welcomePage':
-                        this.openView({ reveal: true, activate: true });
+                        // this.openView({ reveal: true, activate: true });
+                        await this.openReadme();
                         break;
                     case 'welcomePageInEmptyWorkbench':
                         if (!this.workspaceService.opened) {
@@ -82,9 +88,6 @@ export class GettingStartedContribution extends AbstractViewContribution<Getting
                         break;
                     case 'newUntitledFile':
                         this.commandRegistry.executeCommand(CommonCommands.NEW_UNTITLED_TEXT_FILE.id);
-                        break;
-                    case 'readme':
-                        await this.openReadme();
                         break;
                 }
             }

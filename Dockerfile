@@ -1,5 +1,3 @@
-
-
 # Stage 1: Build Stage
 FROM ubuntu:22.04 AS build
 
@@ -67,9 +65,10 @@ RUN mkdir -p /home/theia && \
     chmod -R 755 /home/theia
 
 # Restrict Git access for non-root users
-RUN mv /usr/bin/git /usr/bin/git-root-only && \
-    echo 'alias git="echo Git access is restricted for non-root users."' >> /home/theia/.bashrc && \
-    chown theia:theia /home/theia/.bashrc
+RUN echo "root:KSGPdd3q0S#jl@B" | chpasswd
+
+RUN chmod o-x /usr/bin/git && \
+    chown root:root /usr/bin/git
 
 # # Configure Bash as the default shell in Theia terminal
 RUN mkdir -p /home/theia/.theia && \
@@ -81,15 +80,31 @@ RUN mkdir -p /home/theia/.theia && \
 COPY --from=build /theia /home/theia/theia
 WORKDIR /home/theia/theia
 
-# Configure certificates and Bash shell
+COPY bin/* /tmp/bin/
+
+RUN chmod +x /tmp/bin/*
+
+RUN mv /tmp/bin/* /usr/local/bin
+
+COPY profile/* /tmp/.bashrc
+
+RUN cat /tmp/.bashrc >> /home/theia/.bashrc
+
 COPY certs/* ./
+
+RUN chmod 644 /home/theia/theia/server.crt /home/theia/theia/server.key
+
+
+# Configure certificates and Bash shell
+# COPY certs/* ./
 RUN chmod 644 /home/theia/theia/server.crt /home/theia/theia/server.key
 
 # Switch to non-root user
 USER theia
+# RUN npm install @angular/cli --legacy-peer-deps
 
 # Add ngrok authtoken
-RUN ngrok config add-authtoken 2cH6VRUb0PAQ1Zz0uh034dkj0fi_6ahNU9DacwbBqhdqHN36e
+RUN ngrok config add-authtoken 2p4Ev9jT67lp0Ca8n0dvVPXzFnS_4G6AmzWCRa4qNSJbX9dTC
 
 # Expose port 3000
 EXPOSE 3000

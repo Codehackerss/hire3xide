@@ -1,0 +1,13 @@
+is_ngrok_running() {
+  if pgrep -x "ngrok" > /dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+if ! is_ngrok_running; then
+  run_ngrok &
+fi
+
+detect_and_forward &

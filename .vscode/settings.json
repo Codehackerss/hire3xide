@@ -63,5 +63,6 @@
     "editor.defaultFormatter": "vscode.typescript-language-features",
     "typescript.preferences.quoteStyle": "single",
     "editor.tabSize": 4,
-  }
+  },
+  "workbench.startupEditor": "readme"
 }
